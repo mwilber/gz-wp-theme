@@ -267,3 +267,13 @@ function register_gz_post_types() {
 
 }
 add_action( 'init', 'register_gz_post_types', 0 );
+
+function themeprefix_show_cpt_archives( $query ) {
+	if( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) {
+		$query->set( 'post_type', array(
+			'post', 'nav_menu_item', 'update', 'project', 'portfolio'
+		));
+		return $query;
+	}
+}
+add_filter( 'pre_get_posts', 'themeprefix_show_cpt_archives' );
