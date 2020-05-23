@@ -136,6 +136,7 @@ function greenzeta_widgets_init() {
 			'after_title'   => '</h2>',
 		)
 	);
+
 }
 add_action( 'widgets_init', 'greenzeta_widgets_init' );
 
@@ -277,3 +278,17 @@ function themeprefix_show_cpt_archives( $query ) {
 	}
 }
 add_filter( 'pre_get_posts', 'themeprefix_show_cpt_archives' );
+
+// Add an options page for global field values
+if( function_exists('acf_add_options_page') ) {
+	
+	acf_add_options_page(array(
+		'page_title' 	=> 'Global Content',
+		'menu_title'	=> 'Global Content',
+		'menu_slug' 	=> 'global-content',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+	
+	
+}
