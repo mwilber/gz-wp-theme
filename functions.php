@@ -300,3 +300,6 @@ if( function_exists('acf_add_options_page') ) {
 	
 	
 }
+
+// Always enque fontawesome
+add_filter( 'ACFFA_always_enqueue_fa', '__return_true' );

@@ -1,11 +1,1 @@
-aside .button {
-  display: inline-block;
-  color: #666;
-}
-aside .button svg {
-  width: 24px;
-}
-.page.page-about {
-  background-color: #7bb951;
-}
-/*# sourceMappingURL=main.css.map */
+.logo svg{height:40px}aside .button{display:inline-block;color:#666}aside .button svg{width:24px}.page.page-about{background-color:#7bb951}/*# sourceMappingURL=main.css.map */
