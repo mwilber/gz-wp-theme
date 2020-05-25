@@ -14,7 +14,9 @@
 
 get_header();
 ?>
-
+	<?php if( get_field('banner')): ?>
+		<div class="banner" style="background-image: url('<?php echo get_field('banner'); ?>');"></div>
+	<?php endif; ?>
 	<main id="primary" class="site-main">
 
 		<?php

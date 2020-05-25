@@ -3,6 +3,18 @@ $header-font-size: 16px;
 
 $gz-green: #7bb951;
 
+body{
+	color: #404040;
+}
+
+a, a:visited, a:active{
+	color: #528033;
+}
+
+a:hover{
+	color: $gz-green;
+}
+
 header.site-header {
 	body.logged-in &{
 		margin-top: 32px !important;
@@ -81,28 +93,8 @@ header.site-header {
 	}
 }
 
-#page{
-	margin-top: $header-height;
-
-	.site-main{
-		position: relative;
-		max-width: 1200px;
-		left: 50%;
-		transform: translateX(-50%);
-		box-shadow: 0px 0px 30px rgba(0,0,0,0.25);
-	}
-
-	article{
-		background: white;
-	}
-
-	footer{
-		height: 200px;
-		display: inline-block;
-	}
-}
-
 @import 'background';
+@import 'page';
 @import 'sidebar';
 
 @import 'about';
