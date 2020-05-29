@@ -2,13 +2,22 @@ $header-height: 40px;
 $header-font-size: 16px;
 
 $gz-green: #7bb951;
+$link-color: #528033;
+$text-color-main: #404040;
+$background-color-main: #f6f6f6;
+
+$break-small: 480px;
+$break-medium: 768px;
+$break-large: 1200px;
+
 
 body{
-	color: #404040;
+	color: $text-color-main;
+	background-color: $background-color-main;
 }
 
 a, a:visited, a:active{
-	color: #528033;
+	color: $link-color;
 }
 
 a:hover{
@@ -20,7 +29,7 @@ header.site-header {
 		margin-top: 32px !important;
 	}
 	background: $gz-green;
-	color: #fff;
+	color: $background-color-main;
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -43,6 +52,11 @@ header.site-header {
 			line-height: calc(#{$header-height} - 0.25rem);
 			font-size: 0.75rem;
 			padding-top: 0.25rem;
+
+			@media screen and (max-width: $break-small) {
+				font-size: 0.5rem;
+				line-height: 40px;
+			}
 		}
 
 		.logo svg{
@@ -67,7 +81,7 @@ header.site-header {
 				display: inline-block;
 				height: $header-height;
 				text-decoration: none;
-				color: #fff;
+				color: $background-color-main;
 			}
 
 			.nav-menu a{
