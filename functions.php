@@ -153,7 +153,9 @@ function greenzeta_scripts() {
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
-	}
+    }
+    
+    wp_enqueue_script( 'greenzeta-custom', get_template_directory_uri() . '/js/greenzeta.js', array(), _S_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'greenzeta_scripts' );
 
@@ -303,3 +305,13 @@ if( function_exists('acf_add_options_page') ) {
 
 // Always enque fontawesome
 add_filter( 'ACFFA_always_enqueue_fa', '__return_true' );
+
+
+// Turn off archive pagination in portfolio
+function no_nopaging($query) {
+	if (is_post_type_archive('portfolio')) {
+		$query->set('nopaging', 1);
+	}
+}
+
+add_action('parse_query', 'no_nopaging');

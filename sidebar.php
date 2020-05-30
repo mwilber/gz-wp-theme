@@ -16,6 +16,26 @@ $post_type = get_post_field( 'post_type', get_post() );
 		<h3 style="color:red;">Update Sidebar</h3>
 	<?php elseif($post_type == "project"): ?>
 		<h3 style="color:red;">Project Sidebar</h3>
+	<?php elseif(is_archive() && $post_type == "portfolio"): ?>
+		<?php 
+			$posts_ids = get_posts('post_type=portfolio&posts_per_page=-1&fields=ids');
+			$tags = get_tags( array(
+			'object_ids' => $posts_ids,
+			'orderby' => 'count',
+			'number' => 0,
+			'order' => 'DESC',
+			) ); ?>
+			<?php if( $tags ): ?>
+			<div class="tag-list">
+				<?php foreach( $tags as $tag ): if($tag->count > 3): ?>
+					<a href="#tag-<?php echo($tag->slug) ?>" class="button tag">
+						<?php echo get_field('icon',$tag->taxonomy . '_' . $tag->term_id); ?>
+						<span><?php echo $tag->name ?></span>						
+					</a>
+                		<?php endif; endforeach; ?>
+			</div>
+			<?php endif; ?>
+
 	<?php elseif(!is_archive() && $post_type == "portfolio"): ?>
 		<?php if(get_field('live_site')): ?>
 		<a href="<?php the_field('live_site'); ?>" class="button primary live-site">
@@ -24,7 +44,7 @@ $post_type = get_post_field( 'post_type', get_post() );
 		<?php endif; ?>
 	<?php elseif($post_slug == "about"): ?>
 		<a href="mailto:<?php the_field('email_address', 'option'); ?>" class="button primary email">
-            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <i class="fas fa-envelope" aria-hidden="true"></i>
             <span><?php the_field('email_address', 'option'); ?></span>
 		</a>
 		<?php if( have_rows('profile_pages', 'option') ): ?>

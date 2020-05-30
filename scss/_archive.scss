@@ -1,0 +1,59 @@
+.archive #page{
+	#primary{
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-auto-rows: min-content;
+		column-gap: 6px;
+		row-gap: 6px;
+		margin: 1.5em;
+
+		.page-header{
+			grid-column-start: 1; 
+			grid-column-end: 3;
+
+			.page-title{
+							
+			}
+		} 
+
+		article{
+
+			.banner{
+				height: 100px;
+			}
+
+			.entry-header{
+
+				.post-thumbnail{
+						height: 120px;
+						flex: 0 0 120px;
+						margin-bottom: -35px;
+						margin-top: -55px;
+					
+					img{
+						width: 100px;
+						height: 100px;
+					}
+				}
+
+				.entry-headline{
+					.entry-super-title{
+						font-size: 1em;
+					}
+
+					.entry-title{
+						font-size: 1.25em;
+					}
+
+
+				}
+
+			}
+			
+		}
+	}
+
+	#secondary{
+		margin-top: 4em;
+	}
+}
