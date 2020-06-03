@@ -18,9 +18,13 @@ window.addEventListener('load', () => {
 			'http://greenzeta.com');
 
 	if(window.location.hash) filterPortfolio(window.location.hash.substring(1));
+
+	new Glide('.glide', {type: 'carousel', perView: 1, gap: 0, peek: 0}).mount();
 });
 
 window.addEventListener('hashchange',(event)=>{
 	console.log("event", window.location.hash.substring(1))
 	filterPortfolio(window.location.hash.substring(1));
+	
+	
 });

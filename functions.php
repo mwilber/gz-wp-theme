@@ -156,6 +156,15 @@ function greenzeta_scripts() {
     }
     
     wp_enqueue_script( 'greenzeta-custom', get_template_directory_uri() . '/js/greenzeta.js', array(), _S_VERSION, true );
+
+
+wp_enqueue_script( 'glidejs', 'https://unpkg.com/@glidejs/glide@3.4.1/dist/glide.js', array(), "3.4.1", true );
+
+
+wp_enqueue_style( 'glide-core', 'https://unpkg.com/@glidejs/glide@3.4.1/dist/css/glide.core.min.css', array(), '3.4.1' );
+wp_enqueue_style( 'glide-theme', 'https://unpkg.com/@glidejs/glide@3.4.1/dist/css/glide.theme.min.css', array(), '3.4.1' );
+
+
 }
 add_action( 'wp_enqueue_scripts', 'greenzeta_scripts' );
 
