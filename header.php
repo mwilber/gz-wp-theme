@@ -39,15 +39,15 @@
 		<div class="zeta pennant">Pennant</div>
 		<div class="zeta running">Running</div>
 		<div class="zeta laptop">laptop</div> -->
-		<img class="zeta folded" src="<?php echo get_template_directory_uri() ?>/images/zeta_armsfolded.png">
+		<img class="zeta artist" src="<?php echo get_template_directory_uri() ?>/images/zeta_artist.png">
 		<img class="zeta laptop" src="<?php echo get_template_directory_uri() ?>/images/zeta_laptop.png">
 	</div>
 	<div class="zeta-container-inner">
 		<img class="zeta pointer" src="<?php echo get_template_directory_uri() ?>/images/zeta_pointer.png">
 		<img class="zeta carry" src="<?php echo get_template_directory_uri() ?>/images/zeta_handful.png">
-		<img class="zeta greek" src="<?php echo get_template_directory_uri() ?>/images/zeta_greek.png">
+		<img class="zeta folded" src="<?php echo get_template_directory_uri() ?>/images/zeta_armsfolded.png">
 		<img class="zeta pennant" src="<?php echo get_template_directory_uri() ?>/images/zeta_pennant.png">
-		<img class="zeta running" src="<?php echo get_template_directory_uri() ?>/images/zeta_running.png">
+		<img class="zeta VR" src="<?php echo get_template_directory_uri() ?>/images/zeta_VR.png">
 	</div>
 	
 </div>

@@ -58,7 +58,7 @@
 		z-index: 10;
 		border-radius: 50%;
 
-		background: #999;
+		background: #dfe0e6;
 	}
 
 	.zeta-container-outer{
@@ -104,36 +104,36 @@
 		background-repeat: no-repeat;
 		background-position: bottom center;
 
-		&.folded{
-			//background-image: url('../images/zeta_armsfolded.png');
-			left: 0;
+		&.artist{
+			left: 2%;
 			top: auto;
 			right: auto;
 			bottom: 0;
 		}
 		&.pointer{
 			//background-image: url('../images/zeta_pointer.png');
-			left: 0;
+			left: 5%;
 			top: auto;
 			right: auto;
 			bottom: 10%;
 		}
 		&.carry{
 			//background-image: url('../images/zeta_handful.png');
-			left: 20%;
+			left: 25%;
 			top: auto;
 			right: auto;
-			bottom: 20%;
+			bottom: 18%;
 			height: 150%;
 		}
-		&.pennant{
+		&.folded{
 			//background-image: url('../images/zeta_pennant.png');
-			left: 35%;
+			left: 45%;
 			top: auto;
 			right: auto;
-			bottom: 5%;
+			bottom: 0;
+			height: 125%;
 		}
-		&.greek{
+		&.pennant{
 			//background-image: url('../images/zeta_pennant.png');
 			left: 60%;
 			top: auto;
@@ -141,13 +141,12 @@
 			bottom: 15%;
 			height: 80%;
 		}
-		&.running{
-			//background-image: url('../images/zeta_running.png');
+		&.VR{
 			left: auto;
 			top: auto;
-			right: 5%;
-			bottom: 10%;
-			height: 75%;
+			right: 10%;
+			bottom: 15%;
+			height: 80%;
 		}
 		&.laptop{
 			//background-image: url('../images/zeta_laptop.png');

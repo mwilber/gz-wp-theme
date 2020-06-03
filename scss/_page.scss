@@ -90,7 +90,7 @@
 		margin-top: 1.5em;
 
 		@media screen and (max-width: $break-small) {
-			flex: 1;
+			flex: 1 1 100%;
 		}
 	}
 }

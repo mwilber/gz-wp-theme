@@ -72,7 +72,8 @@ header.site-header {
 		width: auto;
 		height: $header-height;
 
-		.menu{
+		.menu,
+		.menu-main-nav-container{
 			float:left;
 			height: $header-height;
 
