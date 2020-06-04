@@ -2,6 +2,7 @@ $header-height: 40px;
 $header-font-size: 16px;
 
 $gz-green: #7bb951;
+$gz-green-dark: #234914;
 $link-color: #528033;
 $text-color-main: #404040;
 $background-color-main: #f6f6f6;
@@ -9,6 +10,10 @@ $background-color-main: #f6f6f6;
 $break-small: 480px;
 $break-medium: 768px;
 $break-large: 1200px;
+
+:root {
+	--swiper-theme-color: $gz-green;
+}
 
 
 body{
@@ -22,6 +27,29 @@ a, a:visited, a:active{
 
 a:hover{
 	color: $gz-green;
+}
+
+.video-play-button{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: block;
+	border: solid 3px #fff;
+	border-radius: 50%;
+	height: 50px;
+	width: 50px;
+	background: $gz-green;
+	color: #fff !important;
+	text-decoration: none;
+	font-size: 100px;
+	line-height: 50px;
+	padding: 25px 12px 25px 38px;
+	transition: background-color 250ms, opacity 1000ms;
+
+	&:hover{
+		background-color: $gz-green-dark;
+	}
 }
 
 header.site-header {
@@ -123,7 +151,7 @@ header.site-header {
 				position: relative;
 				display: block;
 				width: 100%;
-				height: 500px;
+				height: 650px;
 				max-height: 500px;
 
 				*{

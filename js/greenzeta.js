@@ -32,7 +32,20 @@ window.addEventListener('load', () => {
 		  nextEl: '.swiper-button-next',
 		  prevEl: '.swiper-button-prev',
 		},
-	  });
+	});
+	
+	let playBtn = document.querySelector('.video-play-button');
+	if(playBtn){
+		playBtn.addEventListener('click', function(event){
+			event.preventDefault();
+			let video = document.querySelector('video');
+			if(video) video.play();
+			window.setTimeout(function(){
+				this.style.display = 'none';
+			}.bind(this),1000);
+			this.style.opacity = 0;
+		}.bind(playBtn));
+	}
 });
 
 window.addEventListener('hashchange',(event)=>{

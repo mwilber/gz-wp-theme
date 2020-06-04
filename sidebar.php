@@ -9,10 +9,11 @@
 
 $post_slug = get_post_field( 'post_name', get_post() );
 $post_type = get_post_field( 'post_type', get_post() );
+$tags = wp_get_object_terms( $post->ID,  'post_tag' );
 ?>
 
 <aside id="secondary" class="widget-area">
-    <?php if($post_type == "update"): ?>
+	<?php if($post_type == "update"): ?>
 		<h3 style="color:red;">Update Sidebar</h3>
 	<?php elseif($post_type == "project"): ?>
 		<h3 style="color:red;">Project Sidebar</h3>
@@ -32,20 +33,29 @@ $post_type = get_post_field( 'post_type', get_post() );
 						<?php echo get_field('icon',$tag->taxonomy . '_' . $tag->term_id); ?>
 						<span><?php echo $tag->name ?></span>						
 					</a>
-                		<?php endif; endforeach; ?>
+						<?php endif; endforeach; ?>
 			</div>
 			<?php endif; ?>
 
 	<?php elseif(!is_archive() && $post_type == "portfolio"): ?>
 		<?php if(get_field('live_site')): ?>
-		<a href="<?php the_field('live_site'); ?>" class="button primary live-site">
+		<a href="<?php the_field('live_site'); ?>" class="button primary live-site" target="_blank">
 			<span>Live Site</span>
 		</a>
 		<?php endif; ?>
+		<?php if( $tags ): ?>
+				<?php foreach( $tags as $tag ): ?>
+						<a href="<?php echo get_site_url(); ?>/portfolio#tag-<?php echo $tag->slug ?>" class="button">
+							<?php echo get_field('icon',$tag->taxonomy . '_' . $tag->term_id); ?>
+							<span><?php echo $tag->name ?></span>
+						</a>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
 	<?php elseif($post_slug == "about"): ?>
 		<a href="mailto:<?php the_field('email_address', 'option'); ?>" class="button primary email">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-            <span><?php the_field('email_address', 'option'); ?></span>
+			<i class="fas fa-envelope" aria-hidden="true"></i>
+			<span><?php the_field('email_address', 'option'); ?></span>
 		</a>
 		<?php if( have_rows('profile_pages', 'option') ): ?>
 			<?php while ( have_rows('profile_pages', 'option') ) : the_row(); ?>

@@ -8,8 +8,6 @@
  */
 
 $images = get_field('screen_shots');
-$tags = wp_get_object_terms( $post->ID,  'post_tag' );
-
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -44,9 +42,9 @@ $tags = wp_get_object_terms( $post->ID,  'post_tag' );
 		<div class="swiper-wrapper">
 				<?php if( get_field('case_video') ): ?>
 					<div class="swiper-slide">
+						
 						<video 
 							controls
-							class="cfm-videoplayer-desktop" 
 							width="960" 
 							height="540" 
 							type="video/mp4" 
@@ -54,6 +52,7 @@ $tags = wp_get_object_terms( $post->ID,  'post_tag' );
 							src="<?php echo get_field('case_video') ?>" 
 							style="width: 100%; height: auto;">
 						</video>
+						<a class="video-play-button fas fa-caret-right" href="#"></a>
 					</div>
 				<?php endif; ?>
 				<?php if( $images ): ?>
@@ -61,7 +60,7 @@ $tags = wp_get_object_terms( $post->ID,  'post_tag' );
 						<div class="swiper-slide">
 							<a href="<?php echo $image['url']; ?>">
 								<?php echo $image['caption']; ?>
-								<img src="<?php echo $image['sizes']['large']; ?>" />
+								<img src="<?php echo $image['url']; ?>" />
 							</a>
 						</div>
 					<?php endforeach; ?>
