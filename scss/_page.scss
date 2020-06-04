@@ -1,6 +1,7 @@
 #page{
-	display: flex;
-	flex-wrap: wrap;
+	//display: flex;
+	display: grid;
+	grid-template-columns: calc(100% - 250px) 250px;
 	margin-top: $header-height;
 	position: relative;
 	max-width: 1200px;
@@ -11,7 +12,9 @@
 	background-color: $background-color-main;
 	
 	.banner{
-		flex: 0 0 100%;
+		//flex: 0 0 100%;
+		grid-column-start: 1; 
+		grid-column-end: -1;
 		width: 100%;
 		height: 320px;
 		background-size: cover;
@@ -25,7 +28,9 @@
 
 	.entry-header{
 		display: flex;
-		flex: 1 1 100%;
+		//flex: 1 1 100%;
+		grid-column-start: 1; 
+		grid-column-end: -1;
 		background: $text-color-main;
 		color: $background-color-main;
 		width: 100%;
@@ -76,7 +81,7 @@
 	}
 
 	#primary{
-		flex: 1;
+		//flex: 1;
 		margin-top: 1.5em;
 
 		.entry-content{
@@ -86,7 +91,7 @@
 	}
 
 	#secondary{
-		flex: 0 0 250px;
+		//flex: 0 0 250px;
 		margin-top: 1.5em;
 
 		@media screen and (max-width: $break-small) {

@@ -7,6 +7,9 @@
  * @package GreenZeta
  */
 
+$images = get_field('screen_shots');
+$tags = wp_get_object_terms( $post->ID,  'post_tag' );
+
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -36,6 +39,41 @@
 		);
 		?>
 	</div><!-- .entry-content -->
+
+	<div id="screenshots" class="swiper-container">
+		<div class="swiper-wrapper">
+				<?php if( get_field('case_video') ): ?>
+					<div class="swiper-slide">
+						<video 
+							controls
+							class="cfm-videoplayer-desktop" 
+							width="960" 
+							height="540" 
+							type="video/mp4" 
+							poster="<?php echo get_field('case_poster') ?>" 
+							src="<?php echo get_field('case_video') ?>" 
+							style="width: 100%; height: auto;">
+						</video>
+					</div>
+				<?php endif; ?>
+				<?php if( $images ): ?>
+					<?php foreach( $images as $image ): ?>
+						<div class="swiper-slide">
+							<a href="<?php echo $image['sizes']['large']; ?>">
+								<?php echo $image['caption']; ?>
+								<img src="<?php echo $image['sizes']['large']; ?>" />
+							</a>
+						</div>
+					<?php endforeach; ?>
+				<?php endif; ?>
+		</div>
+		<!-- If we need pagination -->
+		<div class="swiper-pagination"></div>
+
+		<!-- If we need navigation buttons -->
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+	</div>
 
 	<footer class="entry-footer">
 		<?php greenzeta_entry_footer(); ?>

@@ -18,6 +18,21 @@ window.addEventListener('load', () => {
 			'http://greenzeta.com');
 
 	if(window.location.hash) filterPortfolio(window.location.hash.substring(1));
+
+	var swiper = new Swiper('.swiper-container', {
+		autoHeight: true,
+		slidesPerView: 1,
+		spaceBetween: 30,
+		loop: true,
+		pagination: {
+		  el: '.swiper-pagination',
+		  clickable: true,
+		},
+		navigation: {
+		  nextEl: '.swiper-button-next',
+		  prevEl: '.swiper-button-prev',
+		},
+	  });
 });
 
 window.addEventListener('hashchange',(event)=>{
