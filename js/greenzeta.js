@@ -11,6 +11,18 @@ function filterPortfolio(className){
 	});
 }
 
+function playVideo(event){
+	console.log('playbtn', event);
+	event.preventDefault();
+	let video = event.target.parentElement.querySelector('video');
+	if(video) video.play();
+			window.setTimeout(function(){
+				event.target.style.display = 'none';
+			}.bind(this),1000);
+			event.target.style.opacity = 0;
+			return false;
+}
+
 window.addEventListener('load', () => {
 	console.log('%c\u03B6'+'%ca GreenZeta Production', 
 			'font-family:serif; font-size:12px; color: white; font-weight: bold; background-color: #7bb951; padding: 4px 10px;', 
@@ -32,20 +44,22 @@ window.addEventListener('load', () => {
 		  nextEl: '.swiper-button-next',
 		  prevEl: '.swiper-button-prev',
 		},
+		on: {
+			slideChange: function () {
+				let videos = document.querySelectorAll('video');
+				if(videos && videos.length){
+					for( let vidIdx=0; vidIdx < videos.length; vidIdx++ ){
+						videos[vidIdx].pause();
+					}
+				}
+			},
+		},
 	});
 	
-	let playBtn = document.querySelector('.video-play-button');
-	if(playBtn){
-		playBtn.addEventListener('click', function(event){
-			event.preventDefault();
-			let video = document.querySelector('video');
-			if(video) video.play();
-			window.setTimeout(function(){
-				this.style.display = 'none';
-			}.bind(this),1000);
-			this.style.opacity = 0;
-		}.bind(playBtn));
-	}
+	//let playBtn = document.querySelector('.video-play-button');
+	//if(playBtn){
+	//	playBtn.addEventListener('click', .bind(playBtn));
+	//}
 });
 
 window.addEventListener('hashchange',(event)=>{

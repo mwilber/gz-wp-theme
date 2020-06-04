@@ -36,43 +36,43 @@ $images = get_field('screen_shots');
 			)
 		);
 		?>
-	</div><!-- .entry-content -->
 
-	<div id="screenshots" class="swiper-container">
-		<div class="swiper-wrapper">
-				<?php if( get_field('case_video') ): ?>
-					<div class="swiper-slide">
-						
-						<video 
-							controls
-							width="960" 
-							height="540" 
-							type="video/mp4" 
-							poster="<?php echo get_field('case_poster') ?>" 
-							src="<?php echo get_field('case_video') ?>" 
-							style="width: 100%; height: auto;">
-						</video>
-						<a class="video-play-button fas fa-caret-right" href="#"></a>
-					</div>
-				<?php endif; ?>
-				<?php if( $images ): ?>
-					<?php foreach( $images as $image ): ?>
+		<div id="screenshots" class="swiper-container">
+			<div class="swiper-wrapper">
+					<?php if( get_field('case_video') ): ?>
 						<div class="swiper-slide">
-							<a href="<?php echo $image['url']; ?>">
-								<?php echo $image['caption']; ?>
-								<img src="<?php echo $image['url']; ?>" />
-							</a>
+							
+							<video 
+								controls
+								height="100%" 
+								type="video/mp4" 
+								poster="<?php echo get_field('case_poster') ?>" 
+								src="<?php echo get_field('case_video') ?>" 
+								style="width: 100%; height: auto;">
+							</video>
+							<a class="video-play-button fas fa-caret-right" href="#" onclick="playVideo(event)"></a>
 						</div>
-					<?php endforeach; ?>
-				<?php endif; ?>
+					<?php endif; ?>
+					<?php if( $images ): ?>
+						<?php foreach( $images as $image ): ?>
+							<div class="swiper-slide">
+								<!--<a href="<?php echo $image['url']; ?>">
+									<?php echo $image['caption']; ?>-->
+									<span><img src="<?php echo $image['url']; ?>" /></span>
+								<!--</a>-->
+							</div>
+						<?php endforeach; ?>
+					<?php endif; ?>
+			</div>
+			<!-- If we need pagination -->
+			<div class="swiper-pagination"></div>
+	
+			<!-- If we need navigation buttons -->
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
 		</div>
-		<!-- If we need pagination -->
-		<div class="swiper-pagination"></div>
 
-		<!-- If we need navigation buttons -->
-		<div class="swiper-button-prev"></div>
-		<div class="swiper-button-next"></div>
-	</div>
+	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
 		<?php greenzeta_entry_footer(); ?>

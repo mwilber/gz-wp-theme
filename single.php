@@ -25,8 +25,8 @@ get_header();
 
 			the_post_navigation(
 				array(
-					'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', 'greenzeta' ) . '</span> <span class="nav-title">%title</span>',
-					'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', 'greenzeta' ) . '</span> <span class="nav-title">%title</span>',
+					'prev_text' => '<span class="nav-subtitle"><i class="fas fa-angle-left"></i></span> <span class="nav-title">%title</span>',
+					'next_text' => '<span class="nav-title">%title</span> <span class="nav-subtitle"><i class="fas fa-angle-right"></i></span>',
 				)
 			);
 

@@ -40,6 +40,7 @@ $tags = wp_get_object_terms( $post->ID,  'post_tag' );
 	<?php elseif(!is_archive() && $post_type == "portfolio"): ?>
 		<?php if(get_field('live_site')): ?>
 		<a href="<?php the_field('live_site'); ?>" class="button primary live-site" target="_blank">
+			<i class="fas fa-external-link"></i>
 			<span>Live Site</span>
 		</a>
 		<?php endif; ?>
