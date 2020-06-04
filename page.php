@@ -15,7 +15,7 @@
 get_header();
 ?>
 	<?php if( get_field('banner')): ?>
-		<div class="banner" style="background-image: url('<?php echo get_field('banner'); ?>');"></div>
+		<div class="banner" style="background-image: url('<?php echo get_field('banner')['url']; ?>');"></div>
 	<?php endif; ?>
 
 	<?php get_template_part( 'template-parts/headline' ); ?>

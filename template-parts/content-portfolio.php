@@ -59,7 +59,7 @@ $tags = wp_get_object_terms( $post->ID,  'post_tag' );
 				<?php if( $images ): ?>
 					<?php foreach( $images as $image ): ?>
 						<div class="swiper-slide">
-							<a href="<?php echo $image['sizes']['large']; ?>">
+							<a href="<?php echo $image['url']; ?>">
 								<?php echo $image['caption']; ?>
 								<img src="<?php echo $image['sizes']['large']; ?>" />
 							</a>

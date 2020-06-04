@@ -22,6 +22,11 @@
 
 		article{
 
+			a{
+				text-decoration: none;
+				color: $text-color-main;
+			}
+
 			.banner{
 				height: 100px;
 			}

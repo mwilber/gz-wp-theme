@@ -10,27 +10,21 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
+<a href="<?php echo get_permalink(); ?>">
 	<?php if( get_field('banner')): ?>
-		<div class="banner" style="background-image: url('<?php echo get_field('banner'); ?>');"></div>
+		<div class="banner" style="background-image: url('<?php echo get_field('banner')['sizes']['large']; ?>');"></div>
 	<?php endif; ?>
-
 
 	<?php get_template_part( 'template-parts/headline' ); ?>
 
 	<div class="entry-content">
 		<?php
-		the_excerpt();
-		wp_link_pages(
-			array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'greenzeta' ),
-				'after'  => '</div>',
-			)
-		);
+			the_excerpt();
 		?>
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
 		<?php greenzeta_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
+</a>
 </article><!-- #post-<?php the_ID(); ?> -->
