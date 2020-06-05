@@ -13,7 +13,9 @@ $tags = wp_get_object_terms( $post->ID,  'post_tag' );
 ?>
 
 <aside id="secondary" class="widget-area">
-	<?php if($post_type == "update"): ?>
+	<?php if($post_type == "post"): ?>
+		<h3 style="color:red;">Post Sidebar</h3>
+	<?php elseif($post_type == "update"): ?>
 		<h3 style="color:red;">Update Sidebar</h3>
 	<?php elseif($post_type == "project"): ?>
 		<h3 style="color:red;">Project Sidebar</h3>
