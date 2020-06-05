@@ -11,12 +11,8 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <a href="<?php echo get_permalink(); ?>">
-	<?php if( get_field('banner')): ?>
-        <div class="banner" style="background-image: url('<?php echo get_field('banner')['sizes']['large']; ?>');"></div>
-    <?php else: ?>
-        <div class="banner"></div>
-	<?php endif; ?>
-
+	
+	<?php get_template_part( 'template-parts/banner' ); ?>
 	<?php get_template_part( 'template-parts/headline' ); ?>
 
 	<div class="entry-content">

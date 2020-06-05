@@ -8,16 +8,17 @@
  */
 
 get_header();
+// Get the post for use in the header
+the_post();
 ?>
-	<?php if( get_field('banner')): ?>
-		<div class="banner" style="background-image: url('<?php echo get_field('banner')['url']; ?>');"></div>
-	<?php endif; ?>
-	
+	<?php get_template_part( 'template-parts/banner' ); ?>
 	<?php get_template_part( 'template-parts/headline' ); ?>
 	
 	<main id="primary" class="site-main">
 
 		<?php
+		// Reset after retrieving the post for the header
+		rewind_posts();
 		while ( have_posts() ) :
 			the_post();
 
@@ -31,9 +32,9 @@ get_header();
 			);
 
 			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
+			// if ( comments_open() || get_comments_number() ) :
+			// 	comments_template();
+			// endif;
 
 		endwhile; // End of the loop.
 		?>
