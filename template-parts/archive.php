@@ -10,7 +10,7 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-<a href="<?php echo get_permalink(); ?>">
+<a <?php if(get_field('external_content')){ echo 'href="'.get_field('external_content').'" target="_blank"'; }else{ echo 'href="'.get_permalink().'"'; }?>>
 	
 	<?php get_template_part( 'template-parts/banner' ); ?>
 	<?php get_template_part( 'template-parts/headline' ); ?>
