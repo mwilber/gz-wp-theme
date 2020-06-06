@@ -14,11 +14,11 @@
 
 get_header();
 
-//$projects = get_terms( 'project', array( 'post_types' => 'update', 'orderby' => 'post_date', 'order' => 'DESC' ) );
-$projects = get_terms( array(
-    'taxonomy' => 'project',
-    'hide_empty' => true,
-) );
+$projects = get_terms( array( 'taxonomy' => 'project', 'post_types' => 'update', 'orderby' => 'post_date', 'order' => 'DESC' ) );
+// $projects = get_terms( array(
+//     'taxonomy' => 'project',
+//     'hide_empty' => true,
+// ) );
 global $wpdb;
 wp_reset_query();
 ?>
@@ -48,7 +48,7 @@ wp_reset_query();
 			<article id="post-<?php echo $term->term_id; ?>">
 			<a href="<?php echo get_term_link($term->term_id); ?>">
 				
-				<div class="banner" style="background-image: url('');"></div>
+				<div class="banner" style="background-image: url('<?php if(get_field('banner', 'term_'.$term->term_id)){ echo get_field('banner', 'term_'.$term->term_id)['sizes']['large']; } ?>');"></div>
 
 				<header class="entry-header">
 					<div class="post-thumbnail">
