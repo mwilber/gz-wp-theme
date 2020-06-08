@@ -31,7 +31,8 @@
 		display: flex;
 		//flex: 1 1 100%;
 		grid-column-start: 1; 
-		grid-column-end: -1;
+        grid-column-end: -1;
+        min-height: 5.5em;
 		background: $text-color-main;
 		color: $background-color-main;
 		width: 100%;

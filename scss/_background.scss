@@ -19,14 +19,14 @@
 		height: 100%;
 
 		&.left {
-			background: transparent url(../images/honeycomb_3l.png) center right no-repeat;
-			background-size: cover;
+			background: transparent url(../images/honeycomb_4l.png) center right repeat-y;
+			background-size: contain;
 		}
 	
 		&.right {
 			float: right;
-			background: transparent url(../images/honeycomb_3r.png) center left no-repeat;
-			background-size: cover;
+			background: transparent url(../images/honeycomb_4r.png) center repeat-y;
+			background-size: contain;
 		}
 	}
 
@@ -36,7 +36,8 @@
 		top: auto;
 		bottom: -150px;
 		height: 500px;
-		z-index: 5;
+        z-index: 5;
+        max-width: none;
 
 		background: transparent;
 
@@ -58,7 +59,7 @@
 		z-index: 10;
 		border-radius: 50%;
 
-		background: #dfe0e6;
+		background: #cdced4;
 	}
 
 	.zeta-container-outer{
@@ -112,14 +113,14 @@
 		}
 		&.pointer{
 			//background-image: url('../images/zeta_pointer.png');
-			left: 5%;
+			left: 2%;
 			top: auto;
 			right: auto;
 			bottom: 10%;
 		}
 		&.carry{
 			//background-image: url('../images/zeta_handful.png');
-			left: 25%;
+			left: 22%;
 			top: auto;
 			right: auto;
 			bottom: 18%;
@@ -127,7 +128,7 @@
 		}
 		&.folded{
 			//background-image: url('../images/zeta_pennant.png');
-			left: 45%;
+			left: 42%;
 			top: auto;
 			right: auto;
 			bottom: 0;
@@ -135,7 +136,7 @@
 		}
 		&.pennant{
 			//background-image: url('../images/zeta_pennant.png');
-			left: 60%;
+			left: 52%;
 			top: auto;
 			right: auto;
 			bottom: 15%;

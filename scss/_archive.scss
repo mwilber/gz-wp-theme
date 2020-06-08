@@ -3,7 +3,7 @@
 .page-projects #page{
 	#primary{
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 		grid-auto-rows: min-content;
 		column-gap: 6px;
 		row-gap: 6px;

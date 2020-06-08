@@ -1,11 +1,13 @@
 <header class="entry-header">
-	<div class="post-thumbnail">
-		<?php if($post->post_type == 'post'): ?>
-			<?php echo get_avatar($post->post_author, 150); ?>
-		<?php else: ?>
-			<?php the_post_thumbnail(); ?>
-		<?php endif; ?>
-	</div>
+    <?php if($post->post_type != 'post'): ?>
+        <div class="post-thumbnail">
+            <?php if($post->post_type == 'add-a-post-type-to-use'): ?>
+                <?php echo get_avatar($post->post_author, 150); ?>
+            <?php else: ?>
+                <?php the_post_thumbnail(); ?>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
 	<div class="entry-headline">
 		<?php if(get_field('super_headline')): ?>
 			<h2 class="entry-super-title"><?php the_field('super_headline'); ?></h2>
