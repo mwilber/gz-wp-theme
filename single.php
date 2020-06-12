@@ -8,8 +8,24 @@
  */
 
 get_header();
-// Get the post for use in the header
+// Get the post for use in the layout header
 the_post();
+
+if( get_field('banner')) set_query_var( 'bannerImage', get_field('banner')['sizes']['large'] );
+if(get_field('client')){
+	set_query_var( 'headlineSuperTitle', get_field('client') );
+}elseif(get_field('super_headline')){
+	set_query_var( 'headlineSuperTitle', get_field('super_headline') );
+}
+
+$project = false;
+$projects = wp_get_post_terms( get_the_ID(), 'project' );
+if(count($projects) > 0) $project = $projects[0];
+$hashtags = wp_get_post_terms( get_the_ID(), 'post_tag' );
+//print_r($project);
+//print_r($hashtags);
+set_query_var( 'project', $project );
+set_query_var( 'hashtags', $hashtags );
 ?>
 	<?php get_template_part( 'template-parts/banner' ); ?>
 	<?php get_template_part( 'template-parts/headline' ); ?>

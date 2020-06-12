@@ -7,6 +7,10 @@
  * @package GreenZeta
  */
 
+	if( get_field('banner')) set_query_var( 'bannerImage', get_field('banner')['sizes']['large'] );
+	if(get_field('super_headline')){
+		set_query_var( 'headlineSuperTitle', get_field('super_headline') );
+	}
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

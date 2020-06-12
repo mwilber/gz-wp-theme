@@ -12,12 +12,18 @@
  * @package GreenZeta
  */
 
-get_header();
-?>
-	<?php if( get_field('banner')): ?>
-		<div class="banner" style="background-image: url('<?php echo get_field('banner')['url']; ?>');"></div>
-	<?php endif; ?>
+	get_header();
 
+	if( get_field('banner')) set_query_var( 'bannerImage', get_field('banner')['sizes']['large'] );
+	if(get_field('super_headline')){
+		set_query_var( 'headlineSuperTitle', get_field('super_headline') );
+	}
+	if(get_field('headline')){
+		set_query_var( 'headlineTitle', get_field('headline') );
+	}
+?>
+
+	<?php get_template_part( 'template-parts/banner' ); ?>
 	<?php get_template_part( 'template-parts/headline' ); ?>
 
 	<main id="primary" class="site-main">
