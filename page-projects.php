@@ -28,29 +28,53 @@ wp_reset_query();
 			<?php
 			while ( have_posts() ) :
 				the_post();
-
-				get_template_part( 'template-parts/content', 'page' );
-
-				// If comments are open or we have at least one comment, load up the comment template.
-				if ( comments_open() || get_comments_number() ) :
-					comments_template();
-				endif;
+				the_content();
 
 			endwhile; // End of the loop.
 			?>
 		</header>
 
 		<?php for( $idx=0; $idx<count($projects); $idx++ ):
-			//include( locate_template( 'template-parts/archive.php', false, false ) ); 
-			$term = $projects[$idx]; ?>
+
+			$term = $projects[$idx]; 
+
+			if( get_field('banner','term_'.$term->term_id)) 
+				set_query_var( 'bannerImage', get_field('banner','term_'.$term->term_id)['sizes']['large'] );
+			else
+				set_query_var( 'bannerImage', false );
+
+			if( get_field('background_color','term_'.$term->term_id)) 
+				set_query_var( 'bannerColor', get_field('background_color','term_'.$term->term_id) );
+			else
+				set_query_var( 'bannerColor', false );
+
+			if( get_field('featured_image', 'term_'.$term->term_id) ) 
+				set_query_var( 'headlineIcon', get_field('featured_image', 'term_'.$term->term_id)['sizes']['thumbnail'] );
+			else
+				set_query_var( 'headlineIcon', false );
+
+			if( get_field('production_title', 'term_'.$term->term_id) ) 
+				set_query_var( 'headlineSuperTitle', get_field('production_title', 'term_'.$term->term_id) );
+			else
+				set_query_var( 'headlineSuperTitle', false );
+
+			if( get_field('tag_line', 'term_'.$term->term_id) ) 
+				set_query_var( 'headlineTitle', get_field('tag_line', 'term_'.$term->term_id) );
+			else
+				set_query_var( 'headlineTitle', false );
+
+
+
+			
+		?>
 
 
 			<article id="post-<?php echo $term->term_id; ?>">
 			<a href="<?php echo get_term_link($term->term_id); ?>">
 				
-				<div class="banner" style="background-image: url('<?php if(get_field('banner', 'term_'.$term->term_id)){ echo get_field('banner', 'term_'.$term->term_id)['sizes']['large']; } ?>');"></div>
-
-				<header class="entry-header">
+				<?php get_template_part( 'template-parts/banner' ); ?>
+				<?php get_template_part( 'template-parts/headline' ); ?>
+				<!--<header class="entry-header">
 					<div class="post-thumbnail">
 						<img src="<?php echo get_field('featured_image', 'term_'.$term->term_id);  ?>"/>
 					</div>
@@ -58,7 +82,7 @@ wp_reset_query();
 						<h2 class="entry-super-title"><?php echo get_field('production_title', 'term_'.$term->term_id);?></h2>
 						<h1 class="entry-title"><?php echo get_field('tag_line', 'term_'.$term->term_id);?></h1>
 					</div>
-				</header><!-- .entry-header -->
+				</header> .entry-header -->
 
 					<div class="entry-content">
 					<?php echo get_field('description', 'term_'.$term->term_id);?>
