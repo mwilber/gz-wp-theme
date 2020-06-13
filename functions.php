@@ -356,30 +356,30 @@ add_action('parse_query', 'no_nopaging');
 
 // Allow ordering of project list by frequency
 function customtaxorder_applyorderfilter($orderby, $args) {
-    if($args['orderby'] == 'term_order')
-        return 't.term_order';
-    else
-        return $orderby;
+	if($args['orderby'] == 'term_order')
+		return 't.term_order';
+	else
+		return $orderby;
 }
 add_filter('get_terms_orderby', 'customtaxorder_applyorderfilter', 10, 2);
 
 function wpse147412_order_terms_by_post_date( $pieces, $taxonomies, $args ) {
-    global $wpdb;
+	global $wpdb;
 
-    if ( 'post_date' !== $args['orderby'] ) {
-        return $pieces;
-    }
+	if ( 'post_date' !== $args['orderby'] ) {
+		return $pieces;
+	}
 
-    $args = wp_parse_args( $args, array( 'post_types' => 'update' ) );
+	$args = wp_parse_args( $args, array( 'post_types' => 'update' ) );
 
-    $pieces['fields']   = 'DISTINCT ' . $pieces['fields'] . ', MAX(p.post_date) as post_date_sort';
-    $pieces['join']    .= " JOIN $wpdb->term_relationships AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id";
-    $pieces['join']    .= " JOIN $wpdb->posts AS p ON p.ID = tr.object_id";
-    $pieces['where']   .= " AND p.post_type IN ('" . implode( "', '", (array) $args['post_types'] ) . "')";
+	$pieces['fields']   = 'DISTINCT ' . $pieces['fields'] . ', MAX(p.post_date) as post_date_sort';
+	$pieces['join']    .= " JOIN $wpdb->term_relationships AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id";
+	$pieces['join']    .= " JOIN $wpdb->posts AS p ON p.ID = tr.object_id";
+	$pieces['where']   .= " AND p.post_type IN ('" . implode( "', '", (array) $args['post_types'] ) . "')";
 	$pieces['orderby']  = ' GROUP BY t.name ORDER BY post_date_sort';
 	
 	//print_r($pieces);
 
-    return $pieces;
+	return $pieces;
 }
 add_filter( 'terms_clauses', 'wpse147412_order_terms_by_post_date', 10, 3 );

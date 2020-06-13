@@ -135,6 +135,10 @@ header.site-header {
 	}
 }
 
+.page{
+	margin: 0;
+}
+
 @import 'background';
 @import 'page';
 @import 'archive';
@@ -171,7 +175,23 @@ header.site-header {
 .single-post{
 	.entry-header{
 		.post-thumbnail{
-			
+			display: none;
+		}
+	}
+}
+
+.single-update{
+	.entry-content{
+		.hashtags{
+			display: table;
+			margin-top: 0.5em;
+		}
+
+		.post-thumbnail,
+		.wp-video{
+			border: solid 1px $text-color-main;
+			padding: 5px;
+			margin: auto;
 		}
 	}
 }
