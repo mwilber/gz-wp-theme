@@ -1,1 +1,1 @@
-<div class="banner" style="<?php if(isset($bannerColor)): ?>background-color: <?php echo $bannerColor ?>;<?php endif; ?> <?php if(isset($bannerImage)): ?>background-image: url('<?php echo $bannerImage ?>');<?php endif; ?>"></div>
+<div class="banner<?php if(!isset($bannerImage) || $bannerImage == ''): ?> no-image<?php endif; ?>" style="<?php if(isset($bannerColor)): ?>background-color: <?php echo $bannerColor ?>;<?php endif; ?> <?php if(isset($bannerImage)): ?>background-image: url('<?php echo $bannerImage ?>');<?php endif; ?>"></div>

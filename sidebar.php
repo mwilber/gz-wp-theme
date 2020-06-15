@@ -7,9 +7,16 @@
  * @package GreenZeta
  */
 
-$post_slug = get_post_field( 'post_name', get_post() );
-$post_type = get_post_field( 'post_type', get_post() );
-$tags = wp_get_object_terms( $post->ID,  'post_tag' );
+if($term){
+    $project = get_term_by('slug', $term, 'project');
+    $production_link = get_field('production_link', 'term_'.$project->term_id);
+    $repo_link = get_field('repo_link', 'term_'.$project->term_id);
+    $post_type = 'project';
+}else{
+    $post_slug = get_post_field( 'post_name', get_post() );
+    $post_type = get_post_field( 'post_type', get_post() );
+    $tags = wp_get_object_terms( $post->ID,  'post_tag' );
+}
 ?>
 
 <aside id="secondary" class="widget-area">
@@ -17,7 +24,19 @@ $tags = wp_get_object_terms( $post->ID,  'post_tag' );
 		<h3 style="color:red;">Post Sidebar</h3>
 	<?php elseif($post_type == "update"): ?>
 		<h3 style="color:red;">Update Sidebar</h3>
-	<?php elseif($post_type == "project"): ?>
+    <?php elseif($post_type == "project"): ?>
+        <?php if(isset($production_link)): ?>
+		<a href="<?php echo $production_link; ?>" class="button primary live-site" target="_blank">
+			<i class="fas fa-external-link"></i>
+			<span>Live Site</span>
+		</a>
+        <?php endif; ?>
+        <?php if(isset($repo_link)): ?>
+		<a href="<?php echo $repo_link; ?>" class="button primary repo-site" target="_blank">
+			<i class="fas fa-external-link"></i>
+			<span>Source Code</span>
+		</a>
+		<?php endif; ?>
 		<h3 style="color:red;">Project Sidebar</h3>
 	<?php elseif(is_archive() && $post_type == "portfolio"): ?>
 		<?php 

@@ -32,7 +32,7 @@ window.addEventListener('load', () => {
 	if(window.location.hash) filterPortfolio(window.location.hash.substring(1));
 
 	var swiper = new Swiper('.swiper-container', {
-		autoHeight: true,
+		autoHeight: false,
 		slidesPerView: 1,
 		spaceBetween: 30,
 		loop: true,
