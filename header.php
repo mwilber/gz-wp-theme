@@ -73,29 +73,31 @@
 		</a>
 	</div><!-- .site-branding -->
 
-	<nav id="site-navigation" class="main-navigation">
-		<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'greenzeta' ); ?></button>
-		<?php
-		wp_nav_menu(
-			array(
-				'theme_location' => 'menu-1',
-				'menu_id'        => 'primary-menu',
-			)
-		);
-		?>
-		<?php if( have_rows('profile_pages', 'option') ): ?>
-			<div class="menu">
-				<ul class="profile-menu">
-					<?php while ( have_rows('profile_pages', 'option') ) : the_row(); ?>
-					<li>
-						<a href="<?php the_sub_field('url'); ?>" class="button profile <?php the_sub_field('icon_color'); ?>" style="background-color:<?php the_sub_field('color'); ?>">
-							<?php the_sub_field('icon'); ?>
-						</a>
-					</li>
-					<?php endwhile; ?>
-				</ul>
-			</div>
-		<?php endif; ?>
+	<nav id="site-navigation" class="main-navigation toggled">
+        <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'greenzeta' ); ?></button>
+        <div class="menu-group-container">
+            <?php
+            wp_nav_menu(
+                array(
+                    'theme_location' => 'menu-1',
+                    'menu_id'        => 'primary-menu',
+                )
+            );
+            ?>
+            <?php if( have_rows('profile_pages', 'option') ): ?>
+                <div class="menu-main-profile-container">
+                    <ul class="menu profile-menu">
+                        <?php while ( have_rows('profile_pages', 'option') ) : the_row(); ?>
+                        <li>
+                            <a href="<?php the_sub_field('url'); ?>" class="button profile <?php the_sub_field('icon_color'); ?>" style="background-color:<?php the_sub_field('color'); ?>">
+                                &nbsp;<?php the_sub_field('icon'); ?>
+                            </a>
+                        </li>
+                        <?php endwhile; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+        </div>
 	</nav><!-- #site-navigation -->
 </header><!-- #masthead -->
 <div id="page" class="site">

@@ -9,6 +9,7 @@ $background-color-main: #f6f6f6;
 
 $break-small: 480px;
 $break-medium: 768px;
+$break-menu: 1000px;
 $break-large: 1200px;
 
 :root {
@@ -92,15 +93,15 @@ header.site-header {
 			transform: translateX(-50%);
 			height: 40px;
 		}
-	}
+    }
 
 	.main-navigation{
 		float:right;
 		width: auto;
 		height: $header-height;
 
-		.menu,
-		.menu-main-nav-container{
+		.menu-main-nav-container, 
+        .menu-main-profile-container{
 			float:left;
 			height: $header-height;
 
@@ -132,7 +133,62 @@ header.site-header {
 				}
 			}
 		}
-	}
+    }
+    
+    @media screen and (max-width: $break-menu){
+        .menu-toggle {
+            display: block;
+        }
+        
+        .main-navigation{
+            ul {
+                display: none;
+            }
+            &.toggled ul{
+                display: block;
+            }
+            .menu-main-nav-container, 
+            .menu-main-profile-container{
+                float:none;
+                height: auto;
+
+                ul{
+                    &.menu{
+                        li{
+                            a{
+                                display: inline-block;
+                                width: 100%;
+                                height: auto;
+                                padding: 1em;
+                                background-color: $gz-green;
+                                color: #f6f6f6;
+                                text-decoration: none;
+                                line-height: 1em;
+                            }
+                        }
+                    } 
+                    &.profile-menu{
+                        a{
+                            *{
+                                top: 50%;
+                                left: auto;
+                                transform: translateY(-50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .menu-group-container{
+            position: absolute;
+            top: 40px;
+            right: 0;
+            width: 80%;
+            max-width: 250px;
+            box-shadow: -5px 5px 5px rgba(0,0,0,0.4);
+        }
+    }
 }
 
 .page{
