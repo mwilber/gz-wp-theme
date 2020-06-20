@@ -146,20 +146,17 @@ add_action( 'widgets_init', 'greenzeta_widgets_init' );
 function greenzeta_scripts() {
 	wp_enqueue_style( 'greenzeta-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'greenzeta-style', 'rtl', 'replace' );
-
 	wp_enqueue_script( 'greenzeta-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-
 	wp_enqueue_script( 'greenzeta-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
-	
-	wp_enqueue_script( 'greenzeta-custom', get_template_directory_uri() . '/js/greenzeta.js', array(), _S_VERSION, true );
-
+    
+    // Custom script for GreenZeta.com
+    wp_enqueue_script( 'greenzeta-custom', get_template_directory_uri() . '/js/greenzeta.js', array(), _S_VERSION, true );
+    // Screenshot Carousel
 	wp_enqueue_script( 'swiperjs', 'https://unpkg.com/swiper/js/swiper.min.js', array(), "3.4.1", true );
-
-
 	wp_enqueue_style( 'swiper-theme', 'https://unpkg.com/swiper/css/swiper.min.css', array(), '3.4.1' );
 
 }
@@ -194,7 +191,21 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 
 flush_rewrite_rules( false );
 
-//Page Slug Body Class
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Begin Custom Functions for GreenZeta.com
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Add Page Slug to Body ClassList
+////////////////////////////////////////////////////////////////////////////////////////////////////
 function add_slug_body_class( $classes ) {
 	global $post;
 	if ( isset( $post ) ) {
@@ -202,9 +213,14 @@ function add_slug_body_class( $classes ) {
 	}
 	return $classes;
 }
-add_filter( 'body_class', 'add_slug_body_class' );
 
-// Register Custom Taxonomy
+add_filter( 'body_class', 'add_slug_body_class' );
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Register Custom Taxonomy (project)
+////////////////////////////////////////////////////////////////////////////////////////////////////
 function project() {
 
 	$labels = array(
@@ -241,10 +257,14 @@ function project() {
 	register_taxonomy( 'project', array( 'post', ' portfolio', ' update' ), $args );
 
 }
+
 add_action( 'init', 'project', 0 );
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// Register Custom Post Type
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Register Custom Post Types (portfolio, update)
+////////////////////////////////////////////////////////////////////////////////////////////////////
 function register_gz_post_types() {
 
 	$taxs = array( 'category', 'post_tag', 'project' );
@@ -313,9 +333,14 @@ function register_gz_post_types() {
 	register_post_type( 'portfolio', $args );
 
 }
+
 add_action( 'init', 'register_gz_post_types', 0 );
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Show custom post types in category archive
+////////////////////////////////////////////////////////////////////////////////////////////////////
 function themeprefix_show_cpt_archives( $query ) {
 	if( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) {
 		$query->set( 'post_type', array(
@@ -324,11 +349,15 @@ function themeprefix_show_cpt_archives( $query ) {
 		return $query;
 	}
 }
-add_filter( 'pre_get_posts', 'themeprefix_show_cpt_archives' );
 
+//add_filter( 'pre_get_posts', 'themeprefix_show_cpt_archives' );
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Add an options page for global field values
+////////////////////////////////////////////////////////////////////////////////////////////////////
 if( function_exists('acf_add_options_page') ) {
-	
 	acf_add_options_page(array(
 		'page_title' 	=> 'Global Content',
 		'menu_title'	=> 'Global Content',
@@ -336,15 +365,20 @@ if( function_exists('acf_add_options_page') ) {
 		'capability'	=> 'edit_posts',
 		'redirect'		=> false
 	));
-	
-	
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Always enque fontawesome
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Always enque fontawesome (ACF Fontawesome plugin)
+////////////////////////////////////////////////////////////////////////////////////////////////////
 add_filter( 'ACFFA_always_enqueue_fa', '__return_true' );
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Turn off archive pagination in portfolio
+////////////////////////////////////////////////////////////////////////////////////////////////////
 function no_nopaging($query) {
 	if (is_post_type_archive('portfolio')) {
 		$query->set('nopaging', 1);
@@ -352,9 +386,12 @@ function no_nopaging($query) {
 }
 
 add_action('parse_query', 'no_nopaging');
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Allow ordering of project list by frequency
+////////////////////////////////////////////////////////////////////////////////////////////////////
 function customtaxorder_applyorderfilter($orderby, $args) {
 	if($args['orderby'] == 'term_order')
 		return 't.term_order';
@@ -362,7 +399,12 @@ function customtaxorder_applyorderfilter($orderby, $args) {
 		return $orderby;
 }
 add_filter('get_terms_orderby', 'customtaxorder_applyorderfilter', 10, 2);
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 function wpse147412_order_terms_by_post_date( $pieces, $taxonomies, $args ) {
 	global $wpdb;
 
@@ -383,3 +425,34 @@ function wpse147412_order_terms_by_post_date( $pieces, $taxonomies, $args ) {
 	return $pieces;
 }
 add_filter( 'terms_clauses', 'wpse147412_order_terms_by_post_date', 10, 3 );
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Add active class to main menu when looking at posts
+////////////////////////////////////////////////////////////////////////////////////////////////////
+function menu_item_parent_class_remove($var)
+{
+	// check for current page values, return false if they exist.
+	if ($var == 'current_page_parent' || $var == 'current-menu-item' || $var == 'current-page-ancestor') { return false; }
+
+	return true;
+}
+
+function gz_add_class_to_menu($classes)
+{
+	if (is_singular('portfolio')){
+		$classes = array_filter($classes, 'menu_item_parent_class_remove');
+		if (in_array('menu-item-2684', $classes)) $classes[] = 'current-menu-item';
+	}elseif (is_singular('post')){
+		$classes = array_filter($classes, 'menu_item_parent_class_remove');
+		if (in_array('menu-item-2682', $classes)) $classes[] = 'current-menu-item';
+	}elseif (is_tax('project') || is_singular('update')){
+		$classes = array_filter($classes, 'menu_item_parent_class_remove');
+		if (in_array('menu-item-2925', $classes)) $classes[] = 'current-menu-item';
+	}
+	return $classes;
+}
+
+if (!is_admin()) { add_filter('nav_menu_css_class', 'gz_add_class_to_menu'); }
+////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -113,9 +113,23 @@ header.site-header {
 				color: $background-color-main;
 			}
 
-			.nav-menu a{
-				line-height: $header-height;
-				padding: 0 20px 0 0;
+			.nav-menu{
+				.menu-item{
+					text-align: center;
+
+					&.current-menu-item{
+					//&.current_page_parent{
+						background-color: rgba(0,0,0,0.25);
+					}
+	
+					a{
+						line-height: $header-height;
+						padding: 0 10px;
+					}
+					&:last-of-type a{
+						padding-right: 20px;
+					}
+				}
 			}
 
 			.profile-menu a{
