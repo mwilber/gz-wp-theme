@@ -1,0 +1,42 @@
+.page-home{
+	#page{
+		grid-template-columns: 100%;
+
+		#primary{
+
+			article{
+				a{
+					text-decoration: none;
+
+					.entry-header{
+						margin-bottom: 0;
+
+						.post-thumbnail{
+							display: none;
+						}
+					}
+				}
+			}
+
+			.hero-group{
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+
+				.hero{
+					grid-column-start: 1;
+					grid-column-end: -1;
+				}
+			}
+
+			.portfolio-group,
+			.update-group{
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr 1fr;
+			}
+		}
+
+		#secondary{
+			display: none;
+		}
+	}
+}

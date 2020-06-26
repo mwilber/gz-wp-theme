@@ -58,7 +58,13 @@
 			set_query_var( 'bannerImage', false );
 
 		set_query_var( 'headlineIcon', false );
-		set_query_var( 'headlineSuperTitle', 'Featured Article' );
+
+		if(get_field('client', $article->ID)){
+			set_query_var( 'headlineSuperTitle', get_field('client', $article->ID) );
+		}else{
+			set_query_var( 'headlineSuperTitle', false );
+		}
+
 		set_query_var( 'headlineTitle', $article->post_title );
 	}
 
@@ -86,65 +92,69 @@
 			?>
 		</header>
 
-		<?php SetQueryVarsForTax($heroTax); ?>
-		<article id="post-<?php echo $heroTax->term_id; ?>">
-			<a href="<?php echo get_term_link($heroTax->term_id); ?>">
-				<?php get_template_part( 'template-parts/banner' ); ?>
-				<?php get_template_part( 'template-parts/headline' ); ?>
-			</a>
-		</article>
+		<div class="hero-group">
 
-		<?php foreach( $featuredTaxes as $featuredTax ): ?>
-			<?php SetQueryVarsForTax($featuredTax); ?>
-			<article id="post-<?php echo $featuredTax->term_id; ?>">
-				<a href="<?php echo get_term_link($featuredTax->term_id); ?>">
+			<?php SetQueryVarsForTax($heroTax); ?>
+			<article id="post-<?php echo $heroTax->term_id; ?>" class="hero">
+				<a href="<?php echo get_term_link($heroTax->term_id); ?>">
 					<?php get_template_part( 'template-parts/banner' ); ?>
 					<?php get_template_part( 'template-parts/headline' ); ?>
 				</a>
 			</article>
-		<?php endforeach; ?>
+
+			<?php foreach( $featuredTaxes as $featuredTax ): ?>
+				<?php SetQueryVarsForTax($featuredTax); ?>
+				<article id="post-<?php echo $featuredTax->term_id; ?>">
+					<a href="<?php echo get_term_link($featuredTax->term_id); ?>">
+						<?php get_template_part( 'template-parts/banner' ); ?>
+						<?php get_template_part( 'template-parts/headline' ); ?>
+					</a>
+				</article>
+			<?php endforeach; ?>
 
 
-		<?php foreach( $featuredArticles as $featuredArticle ): ?>
-			<?php //print_r($featuredArticle); ?>
-			<?php SetQueryVarsForArticle($featuredArticle); ?>
-			<article id="post-<?php echo $featuredArticle->ID; ?>">
-				<a <?php if(get_field('external_content', $featuredArticle->ID)){ echo 'href="'.get_field('external_content').'" target="_blank"'; }else{ echo 'href="'.get_permalink().'"'; }?>>
-					<?php get_template_part( 'template-parts/banner' ); ?>
-					<?php get_template_part( 'template-parts/headline' ); ?>
-				</a>
-			</article>
-		<?php endforeach; //print_r($featuredArticles); ?>
+			<?php foreach( $featuredArticles as $featuredArticle ): ?>
+				<?php SetQueryVarsForArticle($featuredArticle); ?>
+				<article id="post-<?php echo $featuredArticle->ID; ?>">
+					<a <?php if(get_field('external_content', $featuredArticle->ID)){ echo 'href="'.get_field('external_content').'" target="_blank"'; }else{ echo 'href="'.get_permalink().'"'; }?>>
+						<?php get_template_part( 'template-parts/banner' ); ?>
+						<?php get_template_part( 'template-parts/headline' ); ?>
+					</a>
+				</article>
+			<?php endforeach; ?>
+
+		</div> <!-- end .hero-group -->
 
 		<h2>Portfolio</h2>
 
-		<?php foreach( $featuredPortfolios as $featuredPortfolio ): ?>
-			<?php SetQueryVarsForArticle($featuredPortfolio); ?>
-			<article id="post-<?php echo $featuredPortfolio->ID; ?>">
-				<a <?php //echo 'href="'.get_permalink().'"'; }?>>
-					<?php get_template_part( 'template-parts/banner' ); ?>
-					<?php get_template_part( 'template-parts/headline' ); ?>
-				</a>
-			</article> 
-		<?php endforeach; //print_r($featuredArticles); ?>
+		<div class="portfolio-group">
+
+			<?php foreach( $featuredPortfolios as $featuredPortfolio ): ?>
+				<?php SetQueryVarsForPortfolio($featuredPortfolio); ?>
+				<article id="post-<?php echo $featuredPortfolio->ID; ?>">
+					<a <?php //echo 'href="'.get_permalink().'"'; }?>>
+						<?php get_template_part( 'template-parts/banner' ); ?>
+						<?php get_template_part( 'template-parts/headline' ); ?>
+					</a>
+				</article> 
+			<?php endforeach; ?>
+
+		</div>
+
+		<h2>Updates</h2>
+
+		<div class="update-group">
+
+		<?php
+			while ( $updates->have_posts() ) :
+				$updates->the_post();
+				get_template_part( 'template-parts/archive', get_post_type() );
+			endwhile;
+		?>
+
+		</div>
 
 	</main><!-- #main -->
-
-	<h2>Updates</h2>
-
-	<?php
-		while ( $updates->have_posts() ) :
-			$updates->the_post();
-
-			/*
-			 * Include the Post-Type-specific template for the content.
-			 * If you want to override this in a child theme, then include a file
-			 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-			 */
-			get_template_part( 'template-parts/archive', get_post_type() );
-
-		endwhile;
-	?>
 
 <?php
 get_sidebar();
