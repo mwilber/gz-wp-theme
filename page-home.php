@@ -50,9 +50,27 @@
 		set_query_var( 'headlineTitle', $article->post_title );
 	}
 
+	function SetQueryVarsForPortfolio($article){
+
+		if( get_field('banner', $article->ID)) 
+			set_query_var( 'bannerImage', get_field('banner', $article->ID)['sizes']['large'] );
+		else
+			set_query_var( 'bannerImage', false );
+
+		set_query_var( 'headlineIcon', false );
+		set_query_var( 'headlineSuperTitle', 'Featured Article' );
+		set_query_var( 'headlineTitle', $article->post_title );
+	}
+
 	$heroTax = get_field('hero');
 	$featuredTaxes = get_field('featured_projects');
 	$featuredArticles = get_field('featured_articles');
+	$featuredPortfolios = get_field('featured_portfolio');
+	$args = array(
+		'post_type'=>array('update'),
+		'posts_per_page'=>4,
+	);
+	$updates = new WP_Query( $args );
 ?>
 
 
@@ -92,14 +110,41 @@
 			<?php SetQueryVarsForArticle($featuredArticle); ?>
 			<article id="post-<?php echo $featuredArticle->ID; ?>">
 				<a <?php if(get_field('external_content', $featuredArticle->ID)){ echo 'href="'.get_field('external_content').'" target="_blank"'; }else{ echo 'href="'.get_permalink().'"'; }?>>
-					Blah
 					<?php get_template_part( 'template-parts/banner' ); ?>
 					<?php get_template_part( 'template-parts/headline' ); ?>
 				</a>
 			</article>
 		<?php endforeach; //print_r($featuredArticles); ?>
 
+		<h2>Portfolio</h2>
+
+		<?php foreach( $featuredPortfolios as $featuredPortfolio ): ?>
+			<?php SetQueryVarsForArticle($featuredPortfolio); ?>
+			<article id="post-<?php echo $featuredPortfolio->ID; ?>">
+				<a <?php //echo 'href="'.get_permalink().'"'; }?>>
+					<?php get_template_part( 'template-parts/banner' ); ?>
+					<?php get_template_part( 'template-parts/headline' ); ?>
+				</a>
+			</article> 
+		<?php endforeach; //print_r($featuredArticles); ?>
+
 	</main><!-- #main -->
+
+	<h2>Updates</h2>
+
+	<?php
+		while ( $updates->have_posts() ) :
+			$updates->the_post();
+
+			/*
+			 * Include the Post-Type-specific template for the content.
+			 * If you want to override this in a child theme, then include a file
+			 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
+			 */
+			get_template_part( 'template-parts/archive', get_post_type() );
+
+		endwhile;
+	?>
 
 <?php
 get_sidebar();
