@@ -3,28 +3,62 @@
 		grid-template-columns: 100%;
 
 		#primary{
+			margin-left: 1.5em;
+			margin-right: 1.5em;
+
+			&>h2{
+				margin-top: 3em;
+			}
+
+			.page-header{
+				h2{
+					margin: 0.5em 0 0 0;
+				}
+				h3{
+					margin: 0 0 1.5em 0;
+				}
+			}
 
 			article{
+				position: relative;
+
 				a{
 					text-decoration: none;
 
 					.entry-header{
+						position: absolute;
+						bottom: 0;
 						margin-bottom: 0;
+						font-size: 12px;
 
 						.post-thumbnail{
 							display: none;
 						}
+
+						.entry-title{
+							font-size: 1.5em;
+						}
 					}
 				}
+
 			}
 
 			.hero-group{
 				display: grid;
 				grid-template-columns: 1fr 1fr;
+				gap: 1.5em;
 
 				.hero{
 					grid-column-start: 1;
 					grid-column-end: -1;
+
+					.banner{
+						height: 480px;
+					}
+
+					.entry-header{
+						font-size: 16px;
+					}
 				}
 			}
 
@@ -32,6 +66,13 @@
 			.update-group{
 				display: grid;
 				grid-template-columns: 1fr 1fr 1fr 1fr;
+
+				article{
+					.banner{
+						height: auto;
+						padding-bottom: 100%;
+					}
+				}
 			}
 		}
 

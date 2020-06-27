@@ -74,7 +74,7 @@
 	$featuredPortfolios = get_field('featured_portfolio');
 	$args = array(
 		'post_type'=>array('update'),
-		'posts_per_page'=>4,
+		'posts_per_page'=>8,
 	);
 	$updates = new WP_Query( $args );
 ?>
