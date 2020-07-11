@@ -17,6 +17,21 @@ if($term){
     $post_type = get_post_field( 'post_type', get_post() );
     $tags = wp_get_object_terms( $post->ID,  'post_tag' );
 }
+
+    $projects = wp_get_post_terms( get_the_ID(), 'project' );
+	if(count($projects) > 0){
+        $relatedProject = $projects[0];
+        $relatedArticle = new WP_Query( array(
+            'post_type' => 'post',
+            'tax_query' => array(
+                array (
+                    'taxonomy' => 'project',
+                    'field' => 'term_id',
+                    'terms' => $relatedProject->term_id),
+                )
+            ),
+        );
+    } 
 ?>
 
 <aside id="secondary" class="widget-area">
@@ -94,4 +109,58 @@ if($term){
 			dynamic_sidebar( 'sidebar-1' ); 
 		}
 	?>
+    <!-- Begin related content -->
+    <h3>Related Content</h3>
+    <?php if(isset($relatedProject)): ?>
+        <?php 
+        //print_r($relatedProject); 
+        if( get_field('banner','term_'.$relatedProject->term_id)) 
+            set_query_var( 'bannerImage', get_field('banner','term_'.$relatedProject->term_id)['sizes']['large'] );
+        else
+            set_query_var( 'bannerImage', false );
+
+        if( get_field('background_color','term_'.$relatedProject->term_id)) 
+            set_query_var( 'bannerColor', get_field('background_color','term_'.$relatedProject->term_id) );
+        else
+            set_query_var( 'bannerColor', false );
+
+        if( get_field('featured_image', 'term_'.$relatedProject->term_id) ) 
+            set_query_var( 'headlineIcon', get_field('featured_image', 'term_'.$relatedProject->term_id)['sizes']['thumbnail'] );
+        else
+            set_query_var( 'headlineIcon', false );
+
+        if( get_field('production_title', 'term_'.$relatedProject->term_id) ) 
+            set_query_var( 'headlineSuperTitle', get_field('production_title', 'term_'.$relatedProject->term_id) );
+        else
+            set_query_var( 'headlineSuperTitle', false );
+
+        if( get_field('tag_line', 'term_'.$relatedProject->term_id) ) 
+            set_query_var( 'headlineTitle', get_field('tag_line', 'term_'.$relatedProject->term_id) );
+        else
+            set_query_var( 'headlineTitle', false );
+        ?>
+        <article id="post-<?php echo $relatedProject->term_id; ?>">
+			<a href="<?php echo get_term_link($relatedProject->term_id); ?>">
+				
+				<?php get_template_part( 'template-parts/banner' ); ?>
+				<?php get_template_part( 'template-parts/headline' ); ?>
+
+			</a>
+        </article>
+        <?php if($relatedArticle->have_posts()):
+            $relatedArticle->the_post(); 
+            if( get_field('banner')) set_query_var( 'bannerImage', get_field('banner')['sizes']['large'] );
+            set_query_var( 'headlineSuperTitle', 'Article' );
+            set_query_var( 'headlineTitle', get_the_title() );
+        ?>
+        <article id="post-<?php the_ID(); ?>">
+			<a <?php if(get_field('external_content')){ echo 'href="'.get_field('external_content').'" target="_blank"'; }else{ echo 'href="'.get_permalink().'"'; }?>>
+				<?php get_template_part( 'template-parts/banner' ); ?>
+				<?php get_template_part( 'template-parts/headline' ); ?>
+
+			</a>
+        </article>
+        <?php endif; ?> 
+    <?php endif; ?> 
+
 </aside><!-- #secondary -->
