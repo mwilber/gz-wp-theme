@@ -102,7 +102,11 @@
 				</a>
 			</article>
 
-			<?php foreach( $featuredTaxes as $featuredTax ): ?>
+			<?php for( $fidx=0; $fidx<2; $fidx++ ): ?>
+
+				<?php $featuredTax = $featuredTaxes[$fidx]; $featuredArticle = $featuredArticles[$fidx]; ?>
+
+			<?php //foreach( $featuredTaxes as $featuredTax ): ?>
 				<?php SetQueryVarsForTax($featuredTax); ?>
 				<article id="post-<?php echo $featuredTax->term_id; ?>">
 					<a href="<?php echo get_term_link($featuredTax->term_id); ?>">
@@ -110,10 +114,10 @@
 						<?php get_template_part( 'template-parts/headline' ); ?>
 					</a>
 				</article>
-			<?php endforeach; ?>
+			<?php //endforeach; ?>
 
 
-			<?php foreach( $featuredArticles as $featuredArticle ): ?>
+			<?php //foreach( $featuredArticles as $featuredArticle ): ?>
 				<?php SetQueryVarsForArticle($featuredArticle); ?>
 				<article id="post-<?php echo $featuredArticle->ID; ?>">
 					<a <?php if(get_field('external_content', $featuredArticle->ID)){ echo 'href="'.get_field('external_content').'" target="_blank"'; }else{ echo 'href="'.get_permalink().'"'; }?>>
@@ -121,7 +125,9 @@
 						<?php get_template_part( 'template-parts/headline' ); ?>
 					</a>
 				</article>
-			<?php endforeach; ?>
+			<?php //endforeach; ?>
+
+			<?php endfor; ?>
 
 		</div> <!-- end .hero-group -->
 
