@@ -31,7 +31,21 @@ if($term){
                 )
             ),
         );
+        $relatedUpdate = new WP_Query( array(
+            'post_type' => 'update',
+            'tax_query' => array(
+                array (
+                    'taxonomy' => 'project',
+                    'field' => 'term_id',
+                    'terms' => $relatedProject->term_id),
+                )
+            ),
+        );
     } 
+
+    if(have_posts()){
+        $currentPostId = get_the_ID();
+    }
 ?>
 
 <aside id="secondary" class="widget-area">
@@ -111,7 +125,7 @@ if($term){
 	?>
     <!-- Begin related content -->
     <h3>Related Content</h3>
-    <?php if(isset($relatedProject)): ?>
+    <?php $relatedCount = 0; if(isset($relatedProject)): ?>
         <?php 
         //print_r($relatedProject); 
         if( get_field('banner','term_'.$relatedProject->term_id)) 
@@ -147,19 +161,41 @@ if($term){
 
 			</a>
         </article>
+        <?php $relatedCount++; ?>
         <?php if($relatedArticle->have_posts()):
             $relatedArticle->the_post(); 
             if( get_field('banner')) set_query_var( 'bannerImage', get_field('banner')['sizes']['large'] );
             set_query_var( 'headlineSuperTitle', 'Article' );
             set_query_var( 'headlineTitle', get_the_title() );
         ?>
-        <article id="post-<?php the_ID(); ?>">
-			<a <?php if(get_field('external_content')){ echo 'href="'.get_field('external_content').'" target="_blank"'; }else{ echo 'href="'.get_permalink().'"'; }?>>
-				<?php get_template_part( 'template-parts/banner' ); ?>
-				<?php get_template_part( 'template-parts/headline' ); ?>
+            <article id="post-<?php the_ID(); ?>">
+                <a <?php if(get_field('external_content')){ echo 'href="'.get_field('external_content').'" target="_blank"'; }else{ echo 'href="'.get_permalink().'"'; }?>>
+                    <?php get_template_part( 'template-parts/banner' ); ?>
+                    <?php get_template_part( 'template-parts/headline' ); ?>
 
-			</a>
-        </article>
+                </a>
+            </article>
+            <?php $relatedCount++; ?>
+        <?php endif; ?> 
+        <?php if($relatedUpdate->have_posts()):
+            while ( $relatedUpdate->have_posts() && $relatedCount < 4 ) :
+                $relatedUpdate->the_post(); 
+                if($currentPostId != get_the_ID()):
+                    if( get_field('banner')) set_query_var( 'bannerImage', get_field('banner')['sizes']['large'] );
+                    set_query_var( 'headlineSuperTitle', get_the_date() );
+                    set_query_var( 'headlineTitle', get_the_title() );
+                    set_query_var( 'bannerImage', get_the_post_thumbnail_url(get_the_ID(), 'medium') );
+        ?>
+                    <article id="post-<?php the_ID(); ?>">
+                        <a <?php if(get_field('external_content')){ echo 'href="'.get_field('external_content').'" target="_blank"'; }else{ echo 'href="'.get_permalink().'"'; }?>>
+                            <?php get_template_part( 'template-parts/banner' ); ?>
+                            <?php get_template_part( 'template-parts/headline' ); ?>
+
+                        </a>
+                    </article>
+                    <?php $relatedCount++; ?>
+                <?php endif; ?> 
+            <?php endwhile; ?> 
         <?php endif; ?> 
     <?php endif; ?> 
 
