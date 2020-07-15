@@ -46,7 +46,7 @@
 		color: $background-color-main;
 		width: 100%;
 		padding: 1.5em;
-		margin-bottom: 25px;
+		//margin-bottom: 25px;
 
 		@media screen and (max-width: $break-small) {
 			margin-bottom: 0;
@@ -111,7 +111,7 @@
 
 	#secondary{
 		//flex: 0 0 250px;
-		margin-top: 1.5em;
+		//margin-top: 1.5em;
 
 		@media screen and (max-width: $break-small) {
 			flex: 1 1 100%;
