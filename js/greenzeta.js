@@ -76,6 +76,19 @@ window.addEventListener('load', () => {
 			toggleIcon.classList.remove('fa-angle-left');
 		}
 	});
+
+
+	function positionMobileSidebar(timestamp) {
+		if(window.innerWidth < 768){
+			let sidebar = document.getElementById('secondary');
+			sidebar.style.transform = 'translateY(' + window.scrollY + 'px)';
+			window.requestAnimationFrame(positionMobileSidebar);
+		}
+	}
+	window.addEventListener('resize', (event)=>{
+		positionMobileSidebar();
+	})
+	positionMobileSidebar();
 });
 
 window.addEventListener('hashchange',(event)=>{
