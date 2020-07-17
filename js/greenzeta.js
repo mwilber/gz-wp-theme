@@ -31,35 +31,51 @@ window.addEventListener('load', () => {
 
 	if(window.location.hash) filterPortfolio(window.location.hash.substring(1));
 
-	var swiper = new Swiper('.swiper-container', {
-		autoHeight: false,
-		slidesPerView: 1,
-		spaceBetween: 30,
-		loop: true,
-		pagination: {
-		  el: '.swiper-pagination',
-		  clickable: true,
-		},
-		navigation: {
-		  nextEl: '.swiper-button-next',
-		  prevEl: '.swiper-button-prev',
-		},
-		on: {
-			slideChange: function () {
-				let videos = document.querySelectorAll('video');
-				if(videos && videos.length){
-					for( let vidIdx=0; vidIdx < videos.length; vidIdx++ ){
-						videos[vidIdx].pause();
-					}
-				}
-			},
-		},
-	});
+	// var swiper = new Swiper('.swiper-container', {
+	// 	autoHeight: false,
+	// 	slidesPerView: 1,
+	// 	spaceBetween: 30,
+	// 	loop: true,
+	// 	pagination: {
+	// 	  el: '.swiper-pagination',
+	// 	  clickable: true,
+	// 	},
+	// 	navigation: {
+	// 	  nextEl: '.swiper-button-next',
+	// 	  prevEl: '.swiper-button-prev',
+	// 	},
+	// 	on: {
+	// 		slideChange: function () {
+	// 			let videos = document.querySelectorAll('video');
+	// 			if(videos && videos.length){
+	// 				for( let vidIdx=0; vidIdx < videos.length; vidIdx++ ){
+	// 					videos[vidIdx].pause();
+	// 				}
+	// 			}
+	// 		},
+	// 	},
+	// });
 	
 	//let playBtn = document.querySelector('.video-play-button');
 	//if(playBtn){
 	//	playBtn.addEventListener('click', .bind(playBtn));
 	//}
+	
+	let sidebarToggle = document.getElementById('sidebar-toggle');
+	sidebarToggle.addEventListener('click', (event)=>{
+		let sidebar = document.getElementById('secondary');
+		let toggleIcon = sidebar.querySelector('#sidebar-toggle .fas');
+		//fas fa-angle-left
+		if(sidebar.classList.contains('sidebar-out')){
+			sidebar.classList.remove('sidebar-out');
+			toggleIcon.classList.add('fa-angle-left');
+			toggleIcon.classList.remove('fa-angle-right');
+		}else{
+			sidebar.classList.add('sidebar-out');
+			toggleIcon.classList.add('fa-angle-right');
+			toggleIcon.classList.remove('fa-angle-left');
+		}
+	});
 });
 
 window.addEventListener('hashchange',(event)=>{

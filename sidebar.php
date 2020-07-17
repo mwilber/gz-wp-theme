@@ -18,22 +18,6 @@ if($term){
 	$tags = wp_get_object_terms( $post->ID,  'post_tag' );
 }
 
-// Get posts related to project
-function addRelatedContent(
-	&$relatedContent,
-	$bannerImage = false,
-	$headlineTitle = false,
-	$headlineSuperTitle = false,
-	$bannerColor = '#cccccc'
-){
-	array_push($relatedContent, [
-		'bannerColor' => $bannerColor,
-		'bannerImage' => $bannerImage,
-		'headlineSuperTitle' => $headlineSuperTitle,
-		'headlineTitle' => $headlineTitle
-	]);
-}
-
 $relatedContent = array();
 $currentPostId = get_the_ID();
 $totalRelatedContent = 5;
@@ -155,6 +139,8 @@ if( count($relatedContent) < $totalRelatedContent ){
 ?>
 
 <aside id="secondary" class="widget-area">
+	<button id="sidebar-toggle"><i class="fas fa-angle-left"></i></button>
+	<div class="scrollwrap">
 	<?php if($post_type == "post"): ?>
 		
 	<?php elseif($post_type == "update"): ?>
@@ -251,5 +237,5 @@ if( count($relatedContent) < $totalRelatedContent ){
 
 	</div>
 	
-
+	</div>
 </aside><!-- #secondary -->
