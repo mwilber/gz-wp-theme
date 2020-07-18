@@ -1,6 +1,9 @@
 function filterPortfolio(className){
+    console.log("filterPortfolio -> className", className)
 	const itemsToShow = document.querySelectorAll('article.portfolio.'+className);
 	const portfolioItems = document.querySelectorAll('article.portfolio');
+	const filterButtons = document.querySelectorAll('.tag-list .button.tag.active');
+	const activeFilterButton = document.querySelector('a[href="#'+className+'"]');
 
 	portfolioItems.forEach(function(portfolioItem) {
 		if(itemsToShow.length > 0 && !portfolioItem.classList.contains(className)){
@@ -9,6 +12,11 @@ function filterPortfolio(className){
 			portfolioItem.style.display = 'initial';
 		}
 	});
+
+	filterButtons.forEach(function(filterButton) {
+		filterButton.classList.remove('active');
+	});
+	activeFilterButton.classList.add('active');
 }
 
 function playVideo(event){
@@ -89,9 +97,9 @@ window.addEventListener('load', () => {
 		positionMobileSidebar();
 	})
 	positionMobileSidebar();
-});
-
-window.addEventListener('hashchange',(event)=>{
-	console.log("event", window.location.hash.substring(1))
-	filterPortfolio(window.location.hash.substring(1));
+	
+	window.addEventListener('hashchange',(event)=>{
+		console.log("event", window.location.hash.substring(1))
+		filterPortfolio(window.location.hash.substring(1));
+	});
 });

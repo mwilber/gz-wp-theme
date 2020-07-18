@@ -26,7 +26,8 @@
                 opacity: 0;
             }
 
-            &:hover:before{
+            &:hover:before,
+            &.active:before{
                 opacity: 1;
             }
 

@@ -21,120 +21,133 @@ if($term){
 $relatedContent = array();
 $currentPostId = get_the_ID();
 $totalRelatedContent = 5;
+$hideRelatedContent = false;
 
+if(
+	(is_archive() && $post_type == "portfolio") ||
+	($post_type == "project") ||
+	(is_page('projects')) ||
+	(is_archive() && $post_type == "post")
+){ 
+	$hideRelatedContent = true;
+}
 
-$projects = wp_get_post_terms( $currentPostId, 'project' );
-if(count($projects) > 0){
-	$relatedProject = $projects[0];
+if(!$hideRelatedContent){
+	$projects = wp_get_post_terms( $currentPostId, 'project' );
+	if(count($projects) > 0){
+		$relatedProject = $projects[0];
 
-	// Always add a project link if found
-	array_push($relatedContent, [
-		'id' => $relatedProject->term_id,
-		'className' => 'related-project',
-		'link' => get_term_link($relatedProject->term_id),
-		'bannerColor' => get_field('background_color','term_'.$relatedProject->term_id),
-		'bannerImage' => get_field('featured_image', 'term_'.$relatedProject->term_id)['sizes']['medium'],
-		'headlineSuperTitle' => get_field('production_title', 'term_'.$relatedProject->term_id),
-		'headlineTitle' => get_field('tag_line', 'term_'.$relatedProject->term_id)
-	]);
-
-	// Look for articles related to the project
-	$relatedArticle = new WP_Query( array(
-		'post_type' => 'post',
-		'post__not_in' => array( $currentPostId ),
-		'posts_per_page' => $totalRelatedContent,
-		'tax_query' => array(
-			array (
-				'taxonomy' => 'project',
-				'field' => 'term_id',
-				'terms' => $relatedProject->term_id),
-			)
-		)
-	);
-
-	if(count($relatedArticle->posts) > 0){
-		$articleLink = get_permalink($relatedArticle->posts[0]->ID);
-		if(get_field('external_content', $relatedArticle->posts[0]->ID)) $articleLink = get_field('external_content', $relatedArticle->posts[0]->ID);
+		// Always add a project link if found
 		array_push($relatedContent, [
-			'id' => $relatedArticle->posts[0]->ID,
-			'className' => '',
-			'link' => $articleLink,
-			'bannerColor' => false,
-			'bannerImage' => get_field('banner', $relatedArticle->posts[0]->ID)['sizes']['large'],
-			'headlineSuperTitle' => 'Article',
-			'headlineTitle' => get_the_title($relatedArticle->posts[0]->ID)
+			'id' => $relatedProject->term_id,
+			'className' => 'related-project',
+			'link' => get_term_link($relatedProject->term_id),
+			'bannerColor' => get_field('background_color','term_'.$relatedProject->term_id),
+			'bannerImage' => get_field('featured_image', 'term_'.$relatedProject->term_id)['sizes']['medium'],
+			'headlineSuperTitle' => get_field('production_title', 'term_'.$relatedProject->term_id),
+			'headlineTitle' => get_field('tag_line', 'term_'.$relatedProject->term_id)
 		]);
-	}
 
-	// Look for updates related to the project
-	$relatedUpdate = new WP_Query( array(
-		'post_type' => 'update',
-		'post__not_in' => array( $currentPostId ),
-		'posts_per_page' => $totalRelatedContent,
-		'tax_query' => array(
-			array (
-				'taxonomy' => 'project',
-				'field' => 'term_id',
-				'terms' => $relatedProject->term_id),
+		// Look for articles related to the project
+		$relatedArticle = new WP_Query( array(
+			'post_type' => 'post',
+			'post__not_in' => array( $currentPostId ),
+			'posts_per_page' => $totalRelatedContent,
+			'tax_query' => array(
+				array (
+					'taxonomy' => 'project',
+					'field' => 'term_id',
+					'terms' => $relatedProject->term_id),
+				)
 			)
-		)
-	);
+		);
 
-	if(count($relatedUpdate->posts) > 0){
-		for($idx=0; $idx<count($relatedUpdate->posts); $idx++){
-			$updateId = $relatedUpdate->posts[$idx]->ID;
+		if(count($relatedArticle->posts) > 0){
+			$articleLink = get_permalink($relatedArticle->posts[0]->ID);
+			if(get_field('external_content', $relatedArticle->posts[0]->ID)) $articleLink = get_field('external_content', $relatedArticle->posts[0]->ID);
 			array_push($relatedContent, [
-				'id' => $updateId,
+				'id' => $relatedArticle->posts[0]->ID,
 				'className' => '',
-				'link' => get_permalink($updateId),
+				'link' => $articleLink,
 				'bannerColor' => false,
-				'bannerImage' => get_the_post_thumbnail_url($updateId, 'medium'),
-				'headlineSuperTitle' => get_the_date('', $updateId),
-				'headlineTitle' => get_the_title($updateId)
+				'bannerImage' => get_field('banner', $relatedArticle->posts[0]->ID)['sizes']['large'],
+				'headlineSuperTitle' => 'Article',
+				'headlineTitle' => get_the_title($relatedArticle->posts[0]->ID)
 			]);
-			// Stop if we've reached the max related content
-			if( count($relatedContent) >= $totalRelatedContent ) break;
 		}
-	}
 
-} 
-
-// If our related content isn't maxed out, fill it up with portfolio posts
-if( count($relatedContent) < $totalRelatedContent ){
-	$terms = get_the_terms( $currentPostId, 'post_tag' );
-	$term_list = wp_list_pluck( $terms, 'slug' );
-	$relatedTag = new WP_Query( array(
-		'post_type' => array('portfolio'),
-		'posts_per_page' => $totalRelatedContent,
-		'post_status' => 'publish',
-		'post__not_in' => array( $currentPostId ),
-		'orderby' => 'rand',
-		'tax_query' => array(
-			array(
-				'taxonomy' => 'post_tag',
-				'field' => 'slug',
-				'terms' => $term_list
+		// Look for updates related to the project
+		$relatedUpdate = new WP_Query( array(
+			'post_type' => 'update',
+			'post__not_in' => array( $currentPostId ),
+			'posts_per_page' => $totalRelatedContent,
+			'tax_query' => array(
+				array (
+					'taxonomy' => 'project',
+					'field' => 'term_id',
+					'terms' => $relatedProject->term_id),
+				)
 			)
-		)
-	) );
+		);
 
-	if(count($relatedTag->posts) > 0){
-		for($idx=0; $idx<count($relatedTag->posts); $idx++){
-			$contentId = $relatedTag->posts[$idx]->ID;
-			array_push($relatedContent, [
-				'id' => $contentId,
-				'className' => '',
-				'link' => get_permalink($contentId),
-				'bannerColor' => false,
-				'bannerImage' => get_field('banner', $contentId)['sizes']['large'] ,
-				'headlineSuperTitle' => get_field('client', $contentId),
-				'headlineTitle' => get_the_title($contentId)
-			]);
-			// Stop if we've reached the max related content
-			if( count($relatedContent) >= $totalRelatedContent ) break;
+		if(count($relatedUpdate->posts) > 0){
+			for($idx=0; $idx<count($relatedUpdate->posts); $idx++){
+				$updateId = $relatedUpdate->posts[$idx]->ID;
+				array_push($relatedContent, [
+					'id' => $updateId,
+					'className' => '',
+					'link' => get_permalink($updateId),
+					'bannerColor' => false,
+					'bannerImage' => get_the_post_thumbnail_url($updateId, 'medium'),
+					'headlineSuperTitle' => get_the_date('', $updateId),
+					'headlineTitle' => get_the_title($updateId)
+				]);
+				// Stop if we've reached the max related content
+				if( count($relatedContent) >= $totalRelatedContent ) break;
+			}
 		}
-	}
 
+	} 
+
+	// If our related content isn't maxed out, fill it up with portfolio posts
+	if( count($relatedContent) < $totalRelatedContent ){
+		$terms = get_the_terms( $currentPostId, 'post_tag' );
+		$term_list = wp_list_pluck( $terms, 'slug' );
+		// If all else fails look up some javascript
+		if(count($term_list) <= 0) array_push($term_list, 'javascript');
+		$relatedTag = new WP_Query( array(
+			'post_type' => array('portfolio'),
+			'posts_per_page' => $totalRelatedContent,
+			'post_status' => 'publish',
+			'post__not_in' => array( $currentPostId ),
+			'orderby' => 'rand',
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'post_tag',
+					'field' => 'slug',
+					'terms' => $term_list
+				)
+			)
+		) );
+
+		if(count($relatedTag->posts) > 0){
+			for($idx=0; $idx<count($relatedTag->posts); $idx++){
+				$contentId = $relatedTag->posts[$idx]->ID;
+				array_push($relatedContent, [
+					'id' => $contentId,
+					'className' => '',
+					'link' => get_permalink($contentId),
+					'bannerColor' => false,
+					'bannerImage' => get_field('banner', $contentId)['sizes']['large'] ,
+					'headlineSuperTitle' => get_field('client', $contentId),
+					'headlineTitle' => get_the_title($contentId)
+				]);
+				// Stop if we've reached the max related content
+				if( count($relatedContent) >= $totalRelatedContent ) break;
+			}
+		}
+
+	}
 }
 ?>
 
@@ -169,12 +182,15 @@ if( count($relatedContent) < $totalRelatedContent ){
 			) ); ?>
 			<?php if( $tags ): ?>
 			<div class="tag-list">
+				<a href="#" class="button tag">
+					<span>Show All</span>						
+				</a>
 				<?php foreach( $tags as $tag ): if($tag->count > 3): ?>
 					<a href="#tag-<?php echo($tag->slug) ?>" class="button tag">
 						<?php echo get_field('icon',$tag->taxonomy . '_' . $tag->term_id); ?>
 						<span><?php echo $tag->name ?></span>						
 					</a>
-						<?php endif; endforeach; ?>
+				<?php endif; endforeach; ?>
 			</div>
 			<?php endif; ?>
 
@@ -213,12 +229,10 @@ if( count($relatedContent) < $totalRelatedContent ){
 		if ( is_active_sidebar( 'sidebar-1' ) ) {
 			dynamic_sidebar( 'sidebar-1' ); 
 		}
-
-		//print_r($relatedContent);
 	?>
+
 	<!-- Begin related content -->
 	<div class="related-content">
-
 	<?php foreach($relatedContent as $content): 
 			set_query_var( 'bannerColor', $content['bannerColor'] );
 			set_query_var( 'bannerImage', $content['bannerImage'] );
@@ -234,7 +248,6 @@ if( count($relatedContent) < $totalRelatedContent ){
 			</a>
 		</article>
 	<?php endforeach; ?>
-
 	</div>
 	
 	</div>
