@@ -1,22 +1,42 @@
 function filterPortfolio(className){
-    console.log("filterPortfolio -> className", className)
-	const itemsToShow = document.querySelectorAll('article.portfolio.'+className);
 	const portfolioItems = document.querySelectorAll('article.portfolio');
 	const filterButtons = document.querySelectorAll('.tag-list .button.tag.active');
-	const activeFilterButton = document.querySelector('a[href="#'+className+'"]');
-
+	
 	portfolioItems.forEach(function(portfolioItem) {
-		if(itemsToShow.length > 0 && !portfolioItem.classList.contains(className)){
-			portfolioItem.style.display = 'none';
-		}else{
+		if(!className || (className && portfolioItem.classList.contains(className))){
 			portfolioItem.style.display = 'initial';
+		}else{
+			portfolioItem.style.display = 'none';
 		}
 	});
-
+	
 	filterButtons.forEach(function(filterButton) {
 		filterButton.classList.remove('active');
 	});
-	activeFilterButton.classList.add('active');
+
+	const entryTitle = document.querySelector('.page-header .page-title p');
+	let entryFilter = entryTitle.querySelector('.entry-filter');
+	if(!entryFilter){
+		entryFilter = document.createElement('span');
+		entryFilter.classList.add('entry-filter');
+		entryTitle.appendChild(entryFilter);
+	}
+
+	if(className){
+		const activeFilterButton = document.querySelector('a[href="#'+className+'"]');
+		const filterButtonLabel = activeFilterButton.querySelector('span');
+
+		let filterText = className.split('-')[1];
+		if(filterButtonLabel) filterText = filterButtonLabel.innerText;
+
+		
+		entryFilter.innerHTML = 'Filter: '+filterText;
+
+		
+		activeFilterButton.classList.add('active');
+	}else{
+		entryFilter.innerHTML = '';
+	}
 }
 
 function playVideo(event){
@@ -31,13 +51,15 @@ function playVideo(event){
 			return false;
 }
 
-window.addEventListener('load', () => {
-	console.log('%c\u03B6'+'%ca GreenZeta Production', 
-			'font-family:serif; font-size:12px; color: white; font-weight: bold; background-color: #7bb951; padding: 4px 10px;', 
-			'color: white; font-size:12px; background-color: #2a2a2a; padding: 4px 10px;', 
-			'http://greenzeta.com');
+function positionMobileSidebar(timestamp) {
+	if(window.innerWidth < 768){
+		let sidebar = document.getElementById('secondary');
+		sidebar.style.transform = 'translateY(' + window.scrollY + 'px)';
+		window.requestAnimationFrame(positionMobileSidebar);
+	}
+}
 
-	if(window.location.hash) filterPortfolio(window.location.hash.substring(1));
+window.addEventListener('load', () => {
 
 	// var swiper = new Swiper('.swiper-container', {
 	// 	autoHeight: false,
@@ -69,6 +91,8 @@ window.addEventListener('load', () => {
 	//	playBtn.addEventListener('click', .bind(playBtn));
 	//}
 	
+	// Mobile Sidebar
+	////////////////////////////////////////////////////////////////////////////////////
 	let sidebarToggle = document.getElementById('sidebar-toggle');
 	sidebarToggle.addEventListener('click', (event)=>{
 		let sidebar = document.getElementById('secondary');
@@ -85,21 +109,39 @@ window.addEventListener('load', () => {
 		}
 	});
 
-
-	function positionMobileSidebar(timestamp) {
-		if(window.innerWidth < 768){
-			let sidebar = document.getElementById('secondary');
-			sidebar.style.transform = 'translateY(' + window.scrollY + 'px)';
-			window.requestAnimationFrame(positionMobileSidebar);
-		}
-	}
 	window.addEventListener('resize', (event)=>{
 		positionMobileSidebar();
 	})
 	positionMobileSidebar();
+
+	// Portfolio Filters
+	////////////////////////////////////////////////////////////////////////////////////
+	if(window.location.hash) filterPortfolio(window.location.hash.substring(1));
 	
 	window.addEventListener('hashchange',(event)=>{
 		console.log("event", window.location.hash.substring(1))
 		filterPortfolio(window.location.hash.substring(1));
 	});
+
+	// Look for portfolio filter buttons.
+	const filterButtons = document.querySelectorAll('.tag-list .button.tag');
+	if(filterButtons.length){
+		// Add click event handler to remove location hash if already displayed
+		filterButtons.forEach(function(filterButton) {
+			filterButton.addEventListener('click', function(event){
+				if(window.location.hash === this.getAttribute('href')){
+					event.preventDefault();
+					window.location.hash = '';
+				}
+			}.bind(filterButton));
+		});
+	}
+
+	// GZ Console Branding
+	////////////////////////////////////////////////////////////////////////////////////
+	console.log('%c\u03B6'+'%ca GreenZeta Production', 
+			'font-family:serif; font-size:12px; color: white; font-weight: bold; background-color: #7bb951; padding: 4px 10px;', 
+			'color: white; font-size:12px; background-color: #2a2a2a; padding: 4px 10px;', 
+			'http://greenzeta.com');
+
 });

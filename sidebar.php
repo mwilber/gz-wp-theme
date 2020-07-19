@@ -182,9 +182,6 @@ if(!$hideRelatedContent){
 			) ); ?>
 			<?php if( $tags ): ?>
 			<div class="tag-list">
-				<a href="#" class="button tag">
-					<span>Show All</span>						
-				</a>
 				<?php foreach( $tags as $tag ): if($tag->count > 3): ?>
 					<a href="#tag-<?php echo($tag->slug) ?>" class="button tag">
 						<?php echo get_field('icon',$tag->taxonomy . '_' . $tag->term_id); ?>
