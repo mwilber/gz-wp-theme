@@ -156,8 +156,8 @@ function greenzeta_scripts() {
     // Custom script for GreenZeta.com
     wp_enqueue_script( 'greenzeta-custom', get_template_directory_uri() . '/js/greenzeta.js', array(), _S_VERSION, true );
     // Screenshot Carousel
-	wp_enqueue_script( 'swiperjs', 'https://unpkg.com/swiper/js/swiper.min.js', array(), "3.4.1", true );
-	wp_enqueue_style( 'swiper-theme', 'https://unpkg.com/swiper/css/swiper.min.css', array(), '3.4.1' );
+	wp_enqueue_script( 'swiperjs', get_template_directory_uri() . '/js/swiper-bundle.min.js', array(), "3.4.1", true );
+	wp_enqueue_style( 'swiper-theme', get_template_directory_uri() . '/css/swiper-bundle.min.css', array(), '3.4.1' );
 
 }
 add_action( 'wp_enqueue_scripts', 'greenzeta_scripts' );

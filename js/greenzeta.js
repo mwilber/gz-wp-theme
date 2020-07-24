@@ -53,30 +53,30 @@ function positionMobileSidebar(timestamp) {
 
 window.addEventListener('load', () => {
 
-	// var swiper = new Swiper('.swiper-container', {
-	// 	autoHeight: false,
-	// 	slidesPerView: 1,
-	// 	spaceBetween: 30,
-	// 	loop: true,
-	// 	pagination: {
-	// 	  el: '.swiper-pagination',
-	// 	  clickable: true,
-	// 	},
-	// 	navigation: {
-	// 	  nextEl: '.swiper-button-next',
-	// 	  prevEl: '.swiper-button-prev',
-	// 	},
-	// 	on: {
-	// 		slideChange: function () {
-	// 			let videos = document.querySelectorAll('video');
-	// 			if(videos && videos.length){
-	// 				for( let vidIdx=0; vidIdx < videos.length; vidIdx++ ){
-	// 					videos[vidIdx].pause();
-	// 				}
-	// 			}
-	// 		},
-	// 	},
-	// });
+	var swiper = new Swiper('.swiper-container', {
+		autoHeight: false,
+		slidesPerView: 1,
+		spaceBetween: 30,
+		loop: true,
+		pagination: {
+		  el: '.swiper-pagination',
+		  clickable: true,
+		},
+		navigation: {
+		  nextEl: '.swiper-button-next',
+		  prevEl: '.swiper-button-prev',
+		},
+		on: {
+			slideChange: function () {
+				let videos = document.querySelectorAll('video');
+				if(videos && videos.length){
+					for( let vidIdx=0; vidIdx < videos.length; vidIdx++ ){
+						videos[vidIdx].pause();
+					}
+				}
+			},
+		},
+	});
 	
 	//let playBtn = document.querySelector('.video-play-button');
 	//if(playBtn){
