@@ -11,12 +11,21 @@
 			}
 
 			.page-header{
+                //margin: -1.5em 0 1.5em -1.5em;
+                //width: calc(100% + 3em);
+                margin: 1.5em 0 1.5em 0;
 				h2{
-					margin: 0.5em 0 0 0;
+					margin: 0;
 				}
 				h3{
-					margin: 0 0 1.5em 0;
-				}
+					margin: 0;
+                }
+                .banner{
+                    height: 150px;
+                }
+                .post-thumbnail{
+                    display: none;
+                }
 			}
 
 			article{

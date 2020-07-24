@@ -207,20 +207,29 @@ if(!$hideRelatedContent){
 				<?php endforeach; ?>
 			</ul>
 		<?php endif; ?>
-	<?php elseif($post_slug == "about"): ?>
-		<a href="mailto:<?php the_field('email_address', 'option'); ?>" class="button primary email">
-			<i class="fas fa-envelope" aria-hidden="true"></i>
-			<span><?php the_field('email_address', 'option'); ?></span>
-		</a>
-		<?php if( have_rows('profile_pages', 'option') ): ?>
-			<?php while ( have_rows('profile_pages', 'option') ) : the_row(); ?>
+	<?php elseif($post_slug == "about" || $post_slug == "projects"): ?>
+		<?php if($post_slug == "about"): ?>
+			<a href="mailto:<?php the_field('email_address', 'option'); ?>" class="button primary email">
+				<i class="fas fa-envelope" aria-hidden="true"></i>
+				<span><?php the_field('email_address', 'option'); ?></span>
+			</a>
+			<?php if( have_rows('profile_pages', 'option') ): ?>
+				<?php while ( have_rows('profile_pages', 'option') ) : the_row(); ?>
+					<a href="<?php the_sub_field('url'); ?>" class="button profile <?php the_sub_field('icon_color'); ?>" style="background-color:<?php the_sub_field('color'); ?>">
+						<?php the_sub_field('icon'); ?>
+						<span><?php the_sub_field('label'); ?></span>
+					</a>
+				<?php endwhile; ?>
+			<?php endif; ?>
+		<?php endif; ?>
+		<?php if( have_rows('dev_profile_pages', 'option') ): ?>
+			<?php while ( have_rows('dev_profile_pages', 'option') ) : the_row(); ?>
 				<a href="<?php the_sub_field('url'); ?>" class="button profile <?php the_sub_field('icon_color'); ?>" style="background-color:<?php the_sub_field('color'); ?>">
 					<?php the_sub_field('icon'); ?>
 					<span><?php the_sub_field('label'); ?></span>
 				</a>
 			<?php endwhile; ?>
 		<?php endif; ?>
-
 	<?php endif; ?>
 	<?php 
 		if ( is_active_sidebar( 'sidebar-1' ) ) {

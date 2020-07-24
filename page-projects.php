@@ -14,6 +14,11 @@
 
 get_header();
 
+set_query_var( 'bannerImage', false );
+set_query_var( 'headlineSuperTitle', preg_replace('/<p>(.*?)<\/p>/i', '$1', get_the_title()) );
+set_query_var( 'headlineTitle', 'Web Experiments and Original Works' );
+set_query_var( 'headlineIcon', 'hidden' );
+
 $projects = get_terms( array( 'taxonomy' => 'project', 'post_types' => 'update', 'orderby' => 'post_date', 'order' => 'DESC' ) );
 // $projects = get_terms( array(
 //     'taxonomy' => 'project',
@@ -22,17 +27,12 @@ $projects = get_terms( array( 'taxonomy' => 'project', 'post_types' => 'update',
 global $wpdb;
 wp_reset_query();
 ?>
+	<header class="page-header">
+        <?php get_template_part( 'template-parts/banner' ); ?>
+        <?php get_template_part( 'template-parts/headline' ); ?>
+	</header><!-- .page-header -->
+	
 	<main id="primary" class="site-main">
-
-		<header class="page-header">
-			<?php
-			while ( have_posts() ) :
-				the_post();
-				the_content();
-
-			endwhile; // End of the loop.
-			?>
-		</header>
 
 		<?php for( $idx=0; $idx<count($projects); $idx++ ):
 

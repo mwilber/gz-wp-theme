@@ -13,7 +13,16 @@
  */
 
 get_header();
+set_query_var( 'bannerImage', false );
+set_query_var( 'headlineSuperTitle', 'Articles' );
+set_query_var( 'headlineTitle', 'Professional Insights'); // Should be set as a description for the default post type
+set_query_var( 'headlineIcon', 'hidden' );
 ?>
+
+    <header class="page-header">
+        <?php get_template_part( 'template-parts/banner' ); ?>
+        <?php get_template_part( 'template-parts/headline' ); ?>
+    </header><!-- .page-header -->
 
 	<main id="primary" class="site-main">
 

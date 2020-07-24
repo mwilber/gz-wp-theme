@@ -76,21 +76,24 @@
 		'post_type'=>array('update'),
 		'posts_per_page'=>8,
 	);
-	$updates = new WP_Query( $args );
+    $updates = new WP_Query( $args );
+    
+    if( get_field('banner')) set_query_var( 'bannerImage', get_field('banner')['sizes']['large'] );
+	if(get_field('super_headline')){
+		set_query_var( 'headlineSuperTitle', get_field('super_headline') );
+	}
+	if(get_field('headline')){
+		set_query_var( 'headlineTitle', get_field('headline') );
+	}
+	set_query_var( 'headlineIcon', 'hidden' );
 ?>
 
+	<header class="page-header">
+		<?php get_template_part( 'template-parts/banner' ); ?>
+		<?php get_template_part( 'template-parts/headline' ); ?>
+	</header>
 
 	<main id="primary" class="site-main">
-
-		<header class="page-header">
-			<?php
-			while ( have_posts() ) :
-				the_post();
-				the_content();
-
-			endwhile; // End of the loop.
-			?>
-		</header>
 
 		<div class="hero-group">
 

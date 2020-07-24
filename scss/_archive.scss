@@ -13,21 +13,6 @@
 			grid-template-columns: 1fr;
 		}
 
-		.page-header{
-			grid-column-start: 1; 
-			grid-column-end: -1;
-
-			.page-title{
-				.entry-filter{
-					display: block;
-					font-size: 0.5em;
-					position: absolute;
-					margin-left: 1.5em;
-					line-height: 1;
-				}
-			}
-		} 
-
 		article{
 
 			a{
@@ -93,6 +78,6 @@
 	}
 
 	#secondary{
-		margin-top: 12em;
+		//margin-top: 12em;
 	}
 }

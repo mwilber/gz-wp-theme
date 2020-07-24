@@ -8,18 +8,21 @@
  */
 
 get_header();
+
+set_query_var( 'bannerImage', false );
+set_query_var( 'headlineSuperTitle', 'Portfolio' );
+set_query_var( 'headlineTitle', preg_replace('/<p>(.*?)<\/p>/i', '$1', get_the_archive_description()) );
+set_query_var( 'headlineIcon', 'hidden' );
 ?>
+
+    <header class="page-header">
+        <?php get_template_part( 'template-parts/banner' ); ?>
+        <?php get_template_part( 'template-parts/headline' ); ?>
+    </header><!-- .page-header -->
 
 	<main id="primary" class="site-main">
 
 		<?php if ( have_posts() ) : ?>
-
-			<header class="page-header">
-				<?php
-				the_archive_description( '<h1 class="page-title">', '</h1>' );
-				?>
-			</header><!-- .page-header -->
-
 			<?php
 			/* Start the Loop */
 			while ( have_posts() ) :

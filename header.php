@@ -9,14 +9,75 @@
  * @package GreenZeta
  */
 
+$pageMeta = new stdClass();
+$pageMeta->fb = new stdClass();
+$pageMeta->tw = new stdClass();
+
+$pageMeta->domain = "greenzeta.com";
+$pageMeta->url = home_url( $wp->request );
+$pageMeta->description = "Software by Matthew Wilber. Over 15 years of cutting edge web development. JavaScript, CSS, PHP, ASP.net";
+$pageMeta->blogDesc = get_bloginfo('description');
+$pageMeta->name = get_bloginfo('name');
+$pageMeta->title = wp_title('-', false, 'right') . get_bloginfo('name');
+$pageMeta->author = "Matthew Wilber";
+$pageMeta->excerpt = get_the_excerpt();
+$pageMeta->image = get_site_url(null, '/og_share.png');
+$pageMeta->themeColor = "#7bb951";
+
+$pageMeta->fb->appid = "309846011404";
+
+$pageMeta->tw->creator = "@greenzeta";
+
+
+// Use the page excerpt if it's a post page
+if(is_single()) {
+	$pageMeta->description = $pageMeta->excerpt;
+	$pageMeta->image = get_the_post_thumbnail_url(get_the_ID(), 'large');
+}
+
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="https://gmpg.org/xfn/11">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+    
+    <!-- Name of web application (only should be used if the website is used as an app) -->
+    <meta name="application-name" content="<?php echo $pageMeta->name ?>">
 
+    <!-- Theme Color for Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#<?php echo $pageMeta->themeColor ?>">
+
+    <!-- Short description of the document (limit to 150 characters) -->
+    <!-- This content *may* be used as a part of search engine results. -->
+    <meta name="description" content="<?php echo $pageMeta->description ?>">
+	<meta name="author" content="<?php echo $pageMeta->author ?>">
+
+    <!-- Control the behavior of search engine crawling and indexing -->
+    <meta name="robots" content="index,follow"><!-- All Search Engines -->
+    <meta name="googlebot" content="index,follow"><!-- Google Specific -->
+
+	<!-- facebook -->
+	<meta property="fb:app_id" content="<?php echo $pageMeta->fb->appid ?>">
+	<meta property="og:url" content="<?php echo $pageMeta->url ?>">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="<?php echo $pageMeta->title ?>">
+	<meta property="og:image" content="<?php echo $pageMeta->image ?>">
+	<meta property="og:description" content="<?php echo $pageMeta->description ?>">
+	<meta property="og:site_name" content="<?php echo $pageMeta->name ?>">
+	<meta property="og:locale" content="en_US">
+	<meta property="article:author" content="<?php echo $pageMeta->author ?>">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="<?php echo $pageMeta->tw->creator ?>">
+	<meta name="twitter:creator" content="<?php echo $pageMeta->tw->creator ?>">
+	<meta name="twitter:url" content="<?php echo $pageMeta->url ?>">
+	<meta name="twitter:title" content="<?php echo $pageMeta->title ?>">
+	<meta name="twitter:description" content="<?php echo $pageMeta->description ?>">
+	<meta name="twitter:image" content="<?php echo $pageMeta->image ?>">
+	<meta name="twitter:domain" content="<?php echo $pageMeta->domain ?>">
+	
 	<?php wp_head(); ?>
 </head>
 
@@ -93,6 +154,13 @@
 				<div class="menu-main-profile-container">
 					<ul class="menu profile-menu">
 						<?php while ( have_rows('profile_pages', 'option') ) : the_row(); ?>
+						<li>
+							<a href="<?php the_sub_field('url'); ?>" target="_blank" class="button profile <?php the_sub_field('icon_color'); ?>" style="background-color:<?php the_sub_field('color'); ?>">
+								&nbsp;<?php the_sub_field('icon'); ?>
+							</a>
+						</li>
+                        <?php endwhile; ?>
+                        <?php while ( have_rows('dev_profile_pages', 'option') ) : the_row(); ?>
 						<li>
 							<a href="<?php the_sub_field('url'); ?>" target="_blank" class="button profile <?php the_sub_field('icon_color'); ?>" style="background-color:<?php the_sub_field('color'); ?>">
 								&nbsp;<?php the_sub_field('icon'); ?>

@@ -14,13 +14,7 @@ function filterPortfolio(className){
 		filterButton.classList.remove('active');
 	});
 
-	const entryTitle = document.querySelector('.page-header .page-title p');
-	let entryFilter = entryTitle.querySelector('.entry-filter');
-	if(!entryFilter){
-		entryFilter = document.createElement('span');
-		entryFilter.classList.add('entry-filter');
-		entryTitle.appendChild(entryFilter);
-	}
+	const entrySuperTitle = document.querySelector('.page-header .entry-super-title');
 
 	if(className){
 		const activeFilterButton = document.querySelector('a[href="#'+className+'"]');
@@ -29,13 +23,11 @@ function filterPortfolio(className){
 		let filterText = className.split('-')[1];
 		if(filterButtonLabel) filterText = filterButtonLabel.innerText;
 
-		
-		entryFilter.innerHTML = 'Filter: '+filterText;
+		entrySuperTitle.innerHTML = filterText;
 
-		
 		activeFilterButton.classList.add('active');
 	}else{
-		entryFilter.innerHTML = '';
+		entrySuperTitle.innerHTML = 'All';
 	}
 }
 
