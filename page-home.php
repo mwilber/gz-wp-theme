@@ -76,9 +76,9 @@
 		'post_type'=>array('update'),
 		'posts_per_page'=>8,
 	);
-    $updates = new WP_Query( $args );
-    
-    if( get_field('banner')) set_query_var( 'bannerImage', get_field('banner')['sizes']['large'] );
+	$updates = new WP_Query( $args );
+	
+	if( get_field('banner')) set_query_var( 'bannerImage', get_field('banner')['sizes']['large'] );
 	if(get_field('super_headline')){
 		set_query_var( 'headlineSuperTitle', get_field('super_headline') );
 	}
@@ -134,7 +134,12 @@
 
 		</div> <!-- end .hero-group -->
 
-		<h2>Portfolio</h2>
+		<header class="entry-header">
+			<div class="entry-headline">
+				<h2 class="entry-super-title">Portfolio</h2>
+				<h1 class="entry-title">Featured Work</h1>
+			</div>
+		</header>
 
 		<div class="portfolio-group">
 
@@ -150,7 +155,12 @@
 
 		</div>
 
-		<h2>Updates</h2>
+		<header class="entry-header">
+			<div class="entry-headline">
+				<h2 class="entry-super-title">Projects</h2>
+				<h1 class="entry-title">Recent Updates</h1>
+			</div>
+		</header>
 
 		<div class="update-group">
 

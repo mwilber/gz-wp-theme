@@ -6,26 +6,30 @@
 			margin-left: 1.5em;
 			margin-right: 1.5em;
 
-			&>h2{
-				margin-top: 3em;
+			&>.entry-header{
+				background: #404040;
+				color: #f6f6f6;
+				width: 100%;
+				padding: 1em 1.5em;
+				margin: 1.5em 0 0.5em 0;
 			}
 
 			.page-header{
-                //margin: -1.5em 0 1.5em -1.5em;
-                //width: calc(100% + 3em);
-                margin: 1.5em 0 1.5em 0;
+				//margin: -1.5em 0 1.5em -1.5em;
+				//width: calc(100% + 3em);
+				margin: 1.5em 0 1.5em 0;
 				h2{
 					margin: 0;
 				}
 				h3{
 					margin: 0;
-                }
-                .banner{
-                    height: 150px;
-                }
-                .post-thumbnail{
-                    display: none;
-                }
+				}
+				.banner{
+					height: 150px;
+				}
+				.post-thumbnail{
+					display: none;
+				}
 			}
 
 			article{
