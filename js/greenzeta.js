@@ -32,7 +32,7 @@ function filterPortfolio(className){
 }
 
 function playVideo(event){
-	console.log('playbtn', event);
+	//console.log('playbtn', event);
 	event.preventDefault();
 	let video = event.target.parentElement.querySelector('video');
 	if(video) video.play();

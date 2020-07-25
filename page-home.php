@@ -141,7 +141,7 @@
 			<?php foreach( $featuredPortfolios as $featuredPortfolio ): ?>
 				<?php SetQueryVarsForPortfolio($featuredPortfolio); ?>
 				<article id="post-<?php echo $featuredPortfolio->ID; ?>">
-					<a <?php //echo 'href="'.get_permalink().'"'; }?>>
+					<a href="<?php echo get_permalink($featuredPortfolio->ID); ?>">
 						<?php get_template_part( 'template-parts/banner' ); ?>
 						<?php get_template_part( 'template-parts/headline' ); ?>
 					</a>
