@@ -207,7 +207,7 @@ if(!$hideRelatedContent){
 				<?php endforeach; ?>
 			</ul>
 		<?php endif; ?>
-	<?php elseif($post_slug == "about" || $post_slug == "projects"): ?>
+	<?php elseif($post_slug == "about" || $post_slug == "originals"): ?>
 		<?php if($post_slug == "about"): ?>
 			<a href="mailto:<?php the_field('email_address', 'option'); ?>" class="button primary email">
 				<i class="fas fa-envelope" aria-hidden="true"></i>
