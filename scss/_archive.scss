@@ -26,6 +26,8 @@
 
 			.entry-header{
 
+                margin-bottom: 1.5em;
+
 				.post-thumbnail{
 					height: 120px;
 					flex: 0 0 120px;
@@ -58,7 +60,7 @@
 
 					.entry-title{
 						font-size: 1.25em;
-					}
+                    }
 
 					@media screen and (max-width: $break-medium) {
 						.entry-super-title{
@@ -70,7 +72,7 @@
 						}
 					}
 
-				}
+                }
 
 			}
 			

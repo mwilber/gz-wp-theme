@@ -74,18 +74,9 @@ wp_reset_query();
 				
 				<?php get_template_part( 'template-parts/banner' ); ?>
 				<?php get_template_part( 'template-parts/headline' ); ?>
-				<!--<header class="entry-header">
-					<div class="post-thumbnail">
-						<img src="<?php echo get_field('featured_image', 'term_'.$project->term_id);  ?>"/>
-					</div>
-					<div class="entry-headline">
-						<h2 class="entry-super-title"><?php echo get_field('production_title', 'term_'.$project->term_id);?></h2>
-						<h1 class="entry-title"><?php echo get_field('tag_line', 'term_'.$project->term_id);?></h1>
-					</div>
-				</header> .entry-header -->
 
 					<div class="entry-content">
-					<?php echo get_field('description', 'term_'.$project->term_id);?>
+					<p><?php echo get_field('description', 'term_'.$project->term_id);?></p>
 					</div><!-- .entry-content -->
 
 					<footer class="entry-footer">
@@ -93,26 +84,7 @@ wp_reset_query();
 					</footer><!-- .entry-footer -->
 			</a>
 			</article><!-- #post-<?php the_ID(); ?> -->
-			<?php
-				// $args = array(
-				// 	'post_type'=>array('tessera'),
-				// 	'posts_per_page'=>4,
-				// 	'tax_query' => array(
-				// 		array(
-				// 			'taxonomy' => 'tessellation',
-				// 			'terms' => $originals[$idx]->slug ,
-				// 			'field' => 'slug',
-				// 		)
-				// 	),
-				// );
-				// $query = new WP_Query( $args );
-				// wp_reset_query();
-				// while ( $query->have_posts() ): $query->the_post();
 
-				// 	//get_template_part( 'template-parts/content', 'tessera-square' );
-
-				// endwhile;
-			?>
 		<?php endfor; ?>
 
 	</main><!-- #main -->
