@@ -26,7 +26,7 @@
 
 			.entry-header{
 
-                margin-bottom: 1.5em;
+                		margin-bottom: 1.5em;
 
 				.post-thumbnail{
 					height: 120px;
@@ -81,5 +81,15 @@
 
 	#secondary{
 		//margin-top: 12em;
+	}
+}
+
+.blog #page #primary article{
+	.banner{
+		height: 250px;
+	}
+
+	.entry-header{
+    		margin-top: -2.5em;
 	}
 }

@@ -36,6 +36,12 @@ if(!$hideRelatedContent){
 	$projects = wp_get_post_terms( $currentPostId, 'project' );
 	if(count($projects) > 0){
 		$relatedProject = $projects[0];
+		
+		// Set the external links if it's a project updata
+		if($post_type == "update"){
+			$production_link = get_field('production_link', 'term_'.$relatedProject->term_id);
+			$repo_link = get_field('repo_link', 'term_'.$relatedProject->term_id);
+		}
 
 		// Always add a project link if found
 		array_push($relatedContent, [
@@ -156,9 +162,7 @@ if(!$hideRelatedContent){
 	<div class="scrollwrap">
 	<?php if($post_type == "post"): ?>
 		
-	<?php elseif($post_type == "update"): ?>
-		
-	<?php elseif($post_type == "project"): ?>
+	<?php elseif($post_type == "project" || $post_type == "update"): ?>
 		<?php if(isset($production_link)): ?>
 		<a href="<?php echo $production_link; ?>" class="button primary live-site" target="_blank">
 			<i class="fas fa-external-link"></i>
