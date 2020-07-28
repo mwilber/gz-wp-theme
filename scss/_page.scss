@@ -109,6 +109,10 @@
 			.entry-title{
 				font-size: 2em;
 				line-height: 1em;
+
+				@media screen and (max-width: $break-small) {
+					font-size: 1.75em;
+				}
 			}
 		}
 	}
@@ -135,9 +139,18 @@
 		margin-top: 1.5em;
 		margin-bottom: 1.5em;
 
+		@media screen and (max-width: $break-small) {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
 		.entry-content{
 			margin: 0;
 			padding: 0 1.5em;
+
+			@media screen and (max-width: $break-small) {
+				padding: 0 0.5em;
+			}
 		}
 		
 		.post-navigation{

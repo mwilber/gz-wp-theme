@@ -7,7 +7,11 @@
 		grid-auto-rows: min-content;
 		column-gap: 6px;
 		row-gap: 6px;
-		margin: 1.5em;
+        margin: 1.5em;
+        
+        @media screen and (max-width: $break-small) {
+			margin: 0.5em;
+		}
 
 		@media screen and (max-width: $break-medium) {
 			grid-template-columns: 1fr;
