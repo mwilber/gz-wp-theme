@@ -30,7 +30,11 @@
 
 			.entry-header{
 
-                		margin-bottom: 1.5em;
+                margin-bottom: 1.5em;
+
+                @media screen and (max-width: $break-small) {
+                    margin-bottom: 0;
+                }
 
 				.post-thumbnail{
 					height: 120px;
@@ -78,7 +82,15 @@
 
                 }
 
-			}
+            }
+            
+            .entry-content{
+                p{
+                    @media screen and (max-width: $break-small) {
+                        margin: 0.25em 0 1em 0;
+                    }
+                }
+            }
 			
 		}
 	}
@@ -90,7 +102,11 @@
 
 .blog #page #primary article{
 	.banner{
-		height: 250px;
+        height: 250px;
+        
+        @media screen and (max-width: $break-small) {
+            height: 200px;
+        }
 	}
 
 	.entry-header{
