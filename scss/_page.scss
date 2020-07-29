@@ -182,7 +182,7 @@
 			width: 0;
 			top: 0;
 			height: calc(100vh - 40px);
-			transition: width 250ms;
+			transition: width 250ms, opacity 250ms;
 			background-color: #ccc;
 			box-shadow: -2px 2px 5px #000;
 			padding: 0.25em;
@@ -197,14 +197,20 @@
 			&.sidebar-out{
 				//transform: translateX(-100%);
 				width: 250px;
+
+				#sidebar-toggle{
+					.fa-angle-right{
+						padding-left: 0.5em;
+					}
+				}
 			}
 
 			#sidebar-toggle{
 				display: inline-block;
 				position: absolute;
-				transform: translateX(-100%);
+				transform: translateX(-33px);
 				height: 2em;
-				width: 40px;
+				width: 35px;
 				top: 300px;
 				left: 0;
 				font-size: 2em;
@@ -215,8 +221,8 @@
 				border-bottom-right-radius: 0;
 				border: solid 1px #ccc;
 				background-color: #ccc;
-				color: $background-color-main;
-				box-shadow: -2px 2px 3px rgba(0,0,0,0.75);
+				color: #f6f6f6;
+				box-shadow: -6px 3px 4px rgba(0, 0, 0, 0.5);
 
 				&:focus{
 					outline: none;

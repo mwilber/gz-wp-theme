@@ -1,3 +1,7 @@
+let scrollPos = 0;
+let sidebar = null;
+let scrollTimer = null;
+
 function filterPortfolio(className){
 	const portfolioItems = document.querySelectorAll('article.portfolio');
 	const filterButtons = document.querySelectorAll('.tag-list .button.tag.active');
@@ -32,7 +36,6 @@ function filterPortfolio(className){
 }
 
 function playVideo(event){
-	//console.log('playbtn', event);
 	event.preventDefault();
 	let video = event.target.parentElement.querySelector('video');
 	if(video) video.play();
@@ -43,17 +46,39 @@ function playVideo(event){
 			return false;
 }
 
-function positionMobileSidebar(timestamp) {
+function checkScrollPosition(timestamp) {
 	if(window.innerWidth < 768){
-		let sidebar = document.getElementById('secondary');
-		sidebar.style.transform = 'translateY(' + window.scrollY + 'px)';
-		window.requestAnimationFrame(positionMobileSidebar);
+		if(window.scrollY !== scrollPos){
+			scrollPos = window.scrollY;
+			// Viewport has moved
+			if(scrollTimer){
+				window.clearTimeout(scrollTimer);
+				scrollTimer = null;
+			}
+			sidebar.style.opacity = 0;
+			scrollTimer = window.setTimeout(positionMobileSidebar, 250);
+		}
+		window.requestAnimationFrame(checkScrollPosition);
+	}else if(scrollPos !== 0){
+		// Reset the sidebar position if the window expands past the mobile breakpoint
+		scrollPos = 0;
+		positionMobileSidebar();
 	}
+}
+
+function positionMobileSidebar(){
+	if(scrollPos === 0){
+		sidebar.style.transform = '';
+	}else{
+		sidebar.style.transform = 'translateY(' + window.scrollY + 'px)';
+	}
+	sidebar.style.opacity = 1;
+	scrollTimer = null;
 }
 
 window.addEventListener('load', () => {
 
-	var swiper = new Swiper('.swiper-container', {
+	let swiper = new Swiper('.swiper-container', {
 		autoHeight: false,
 		slidesPerView: 1,
 		spaceBetween: 30,
@@ -85,6 +110,14 @@ window.addEventListener('load', () => {
 	
 	// Mobile Sidebar
 	////////////////////////////////////////////////////////////////////////////////////
+	sidebar = document.getElementById('secondary');
+
+	//Prevent scrolling from propagating through the sidepanel
+	let scrollWrap = sidebar.querySelector('.scrollwrap');
+	scrollWrap.addEventListener('scroll', (event)=>{
+		event.stopPropagation();
+	});
+
 	let sidebarToggle = document.getElementById('sidebar-toggle');
 	sidebarToggle.addEventListener('click', (event)=>{
 		let sidebar = document.getElementById('secondary');
@@ -102,16 +135,15 @@ window.addEventListener('load', () => {
 	});
 
 	window.addEventListener('resize', (event)=>{
-		positionMobileSidebar();
+		checkScrollPosition();
 	})
-	positionMobileSidebar();
+	checkScrollPosition();
 
 	// Portfolio Filters
 	////////////////////////////////////////////////////////////////////////////////////
 	if(window.location.hash) filterPortfolio(window.location.hash.substring(1));
 	
 	window.addEventListener('hashchange',(event)=>{
-		console.log("event", window.location.hash.substring(1))
 		filterPortfolio(window.location.hash.substring(1));
 	});
 
