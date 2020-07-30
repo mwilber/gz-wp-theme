@@ -41,7 +41,7 @@ $images = get_field('screen_shots');
 			<div class="swiper-wrapper">
 					<?php if( get_field('case_video') ): ?>
 						<div class="swiper-slide">
-							
+						<span>
 							<video 
 								controls
 								height="100%" 
@@ -50,7 +50,8 @@ $images = get_field('screen_shots');
 								src="<?php echo get_field('case_video') ?>" 
 								style="width: 100%; height: auto;">
 							</video>
-							<a class="video-play-button fas fa-caret-right" href="#" onclick="playVideo(event)"></a>
+						</span>
+						<a class="video-play-button fas fa-caret-right" href="#" onclick="playVideo(event)"></a>
 						</div>
 					<?php endif; ?>
 					<?php if( $images ): ?>
