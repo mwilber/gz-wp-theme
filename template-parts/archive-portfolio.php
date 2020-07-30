@@ -11,6 +11,7 @@
 	if(get_field('client')){
 		set_query_var( 'headlineSuperTitle', get_field('client') );
     }
+	set_query_var( 'headlineTitle', get_the_title() );
     set_query_var( 'headlineIcon', false );
 ?>
 
