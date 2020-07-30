@@ -56,11 +56,16 @@
 	]);
 
 	for($idx=0; $idx<2; $idx++){
-		$contentId = $featuredArticles[$idx]->ID;
+        $contentId = $featuredArticles[$idx]->ID;
+        if(get_field('external_content', $contentId)){
+            $articleLink = get_field('external_content', $contentId);
+        }else{
+            $articleLink = get_permalink($contentId);
+        }
 		array_push($featuredContent, [
 			'id' => $contentId,
 			'className' => '',
-			'link' => get_permalink($contentId),
+			'link' => $articleLink,
 			'bannerColor' => false,
 			'bannerImage' => get_field('banner', $contentId)['sizes']['large'] ,
 			'headlineSuperTitle' => get_field('client', $contentId),
@@ -109,7 +114,7 @@
 					set_query_var( 'headlineTitle', $content['headlineTitle'] );
 			?>
 				<article id="post-<?php echo $content['id']; ?>" class="<?php echo $content['className']; ?>">
-					<a href="<?php echo $content['link']; ?>">
+					<a href="<?php echo $content['link']; ?>" <?php echo (strpos($content['link'], 'greenzeta.com') === false) ? 'target="_blank"' : '' ?>>
 						<?php get_template_part( 'template-parts/banner' ); ?>
 						<?php get_template_part( 'template-parts/headline' ); ?>
 					</a>
