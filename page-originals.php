@@ -36,7 +36,9 @@ wp_reset_query();
 
 		<?php for( $idx=0; $idx<count($projects); $idx++ ):
 
-			$project = $projects[$idx]; 
+            $project = $projects[$idx]; 
+            
+            if( get_field('no_display','term_'.$project->term_id) ) continue;
 
 			if( get_field('banner','term_'.$project->term_id)) 
 				set_query_var( 'bannerImage', get_field('banner','term_'.$project->term_id)['sizes']['large'] );
@@ -62,10 +64,6 @@ wp_reset_query();
 				set_query_var( 'headlineTitle', get_field('tag_line', 'term_'.$project->term_id) );
 			else
 				set_query_var( 'headlineTitle', false );
-
-
-
-			
 		?>
 
 

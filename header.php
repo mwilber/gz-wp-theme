@@ -41,22 +41,22 @@ if(is_single()) {
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="https://gmpg.org/xfn/11">
-    
-    <!-- Name of web application (only should be used if the website is used as an app) -->
-    <meta name="application-name" content="<?php echo $pageMeta->name ?>">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	
+	<!-- Name of web application (only should be used if the website is used as an app) -->
+	<meta name="application-name" content="<?php echo $pageMeta->name ?>">
 
-    <!-- Theme Color for Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#<?php echo $pageMeta->themeColor ?>">
+	<!-- Theme Color for Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#<?php echo $pageMeta->themeColor ?>">
 
-    <!-- Short description of the document (limit to 150 characters) -->
-    <!-- This content *may* be used as a part of search engine results. -->
-    <meta name="description" content="<?php echo $pageMeta->description ?>">
+	<!-- Short description of the document (limit to 150 characters) -->
+	<!-- This content *may* be used as a part of search engine results. -->
+	<meta name="description" content="<?php echo $pageMeta->description ?>">
 	<meta name="author" content="<?php echo $pageMeta->author ?>">
 
-    <!-- Control the behavior of search engine crawling and indexing -->
-    <meta name="robots" content="index,follow"><!-- All Search Engines -->
-    <meta name="googlebot" content="index,follow"><!-- Google Specific -->
+	<!-- Control the behavior of search engine crawling and indexing -->
+	<meta name="robots" content="index,follow"><!-- All Search Engines -->
+	<meta name="googlebot" content="index,follow"><!-- Google Specific -->
 
 	<!-- facebook -->
 	<meta property="fb:app_id" content="<?php echo $pageMeta->fb->appid ?>">
@@ -77,6 +77,16 @@ if(is_single()) {
 	<meta name="twitter:description" content="<?php echo $pageMeta->description ?>">
 	<meta name="twitter:image" content="<?php echo $pageMeta->image ?>">
 	<meta name="twitter:domain" content="<?php echo $pageMeta->domain ?>">
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-76054-2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-76054-2');
+	</script>
 	
 	<?php wp_head(); ?>
 </head>
@@ -159,8 +169,8 @@ if(is_single()) {
 								&nbsp;<?php the_sub_field('icon'); ?>
 							</a>
 						</li>
-                        <?php endwhile; ?>
-                        <?php while ( have_rows('dev_profile_pages', 'option') ) : the_row(); ?>
+						<?php endwhile; ?>
+						<?php while ( have_rows('dev_profile_pages', 'option') ) : the_row(); ?>
 						<li>
 							<a href="<?php the_sub_field('url'); ?>" target="_blank" class="button profile <?php the_sub_field('icon_color'); ?>" style="background-color:<?php the_sub_field('color'); ?>">
 								&nbsp;<?php the_sub_field('icon'); ?>
